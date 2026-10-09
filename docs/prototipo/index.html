@@ -1,0 +1,2929 @@
+<!DOCTYPE html>
+<html><head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="vendor/react.js"></script>
+<script src="vendor/react-dom.js"></script>
+<script src="vendor/dc-runtime.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+  <style>/* ── Ogilvy color system ──────────────────────────────────────────────
+   Four brand colors ONLY: red, black, grey, white. Never introduce others.
+   The red is the exact value sampled from the Ogilvy wordmark. */
+
+:root{
+  /* Base palette */
+  --og-red:#EF3B3A;        /* Ogilvy red — warm coral red */
+  --og-red-ink:#D42E2D;    /* pressed / darker red for interactions */
+  --og-black:#0A0A0A;      /* near-black ink */
+  --og-white:#FFFFFF;
+
+  /* Greys — the only neutrals permitted */
+  --og-grey-900:#1A1A1A;
+  --og-grey-700:#4D4D4D;
+  --og-grey-500:#8C8C8C;   /* "grey medio" — the mid grey used for panels */
+  --og-grey-300:#C7C7C7;
+  --og-grey-150:#E4E4E4;
+  --og-grey-050:#F4F4F4;
+
+  /* ── Semantic aliases ── */
+  --text-body:var(--og-black);
+  --text-muted:var(--og-grey-700);
+  --text-inverse:var(--og-white);
+  --text-accent:var(--og-red);           /* subheads, numbering 01 02 03 */
+
+  --surface-page:var(--og-white);
+  --surface-panel:var(--og-grey-050);
+  --surface-mid:var(--og-grey-500);       /* full mid-grey panel */
+  --surface-ink:var(--og-black);          /* full black background */
+  --surface-brand:var(--og-red);          /* full red background */
+  --surface-card:var(--og-white);
+
+  --border-hairline:var(--og-black);
+  --border-soft:var(--og-grey-300);
+
+  --accent:var(--og-red);
+  --accent-ink:var(--og-red-ink);
+  --focus-ring:var(--og-red);
+}
+</style>
+  <script src="vendor/ogilvy-ds.js"></script>
+  <style>/* latin-ext */
+@font-face {
+  font-family: 'Instrument Sans';
+  font-style: normal;
+  font-weight: 400;
+  font-stretch: 100%;
+  font-display: swap;
+  src: url("assets/fonts/e3e9c12e-6566-4b82-8507-f11f785d24a0.woff2") format('woff2');
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+/* latin */
+@font-face {
+  font-family: 'Instrument Sans';
+  font-style: normal;
+  font-weight: 400;
+  font-stretch: 100%;
+  font-display: swap;
+  src: url("assets/fonts/b593d8da-057c-4138-b207-39499dc9a2e6.woff2") format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+/* latin-ext */
+@font-face {
+  font-family: 'Instrument Sans';
+  font-style: normal;
+  font-weight: 500;
+  font-stretch: 100%;
+  font-display: swap;
+  src: url("assets/fonts/e3e9c12e-6566-4b82-8507-f11f785d24a0.woff2") format('woff2');
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+/* latin */
+@font-face {
+  font-family: 'Instrument Sans';
+  font-style: normal;
+  font-weight: 500;
+  font-stretch: 100%;
+  font-display: swap;
+  src: url("assets/fonts/b593d8da-057c-4138-b207-39499dc9a2e6.woff2") format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+/* latin-ext */
+@font-face {
+  font-family: 'Instrument Sans';
+  font-style: normal;
+  font-weight: 600;
+  font-stretch: 100%;
+  font-display: swap;
+  src: url("assets/fonts/e3e9c12e-6566-4b82-8507-f11f785d24a0.woff2") format('woff2');
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+/* latin */
+@font-face {
+  font-family: 'Instrument Sans';
+  font-style: normal;
+  font-weight: 600;
+  font-stretch: 100%;
+  font-display: swap;
+  src: url("assets/fonts/b593d8da-057c-4138-b207-39499dc9a2e6.woff2") format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+/* latin-ext */
+@font-face {
+  font-family: 'Instrument Sans';
+  font-style: normal;
+  font-weight: 700;
+  font-stretch: 100%;
+  font-display: swap;
+  src: url("assets/fonts/e3e9c12e-6566-4b82-8507-f11f785d24a0.woff2") format('woff2');
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+/* latin */
+@font-face {
+  font-family: 'Instrument Sans';
+  font-style: normal;
+  font-weight: 700;
+  font-stretch: 100%;
+  font-display: swap;
+  src: url("assets/fonts/b593d8da-057c-4138-b207-39499dc9a2e6.woff2") format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+/* cyrillic-ext */
+@font-face {
+  font-family: 'JetBrains Mono';
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+  src: url("assets/fonts/4d532faa-e209-4235-859d-dbf03a24802d.woff2") format('woff2');
+  unicode-range: U+0460-052F, U+1C80-1C8A, U+20B4, U+2DE0-2DFF, U+A640-A69F, U+FE2E-FE2F;
+}
+/* cyrillic */
+@font-face {
+  font-family: 'JetBrains Mono';
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+  src: url("assets/fonts/e444961e-c531-4132-9845-4f473d756691.woff2") format('woff2');
+  unicode-range: U+0301, U+0400-045F, U+0490-0491, U+04B0-04B1, U+2116;
+}
+/* greek */
+@font-face {
+  font-family: 'JetBrains Mono';
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+  src: url("assets/fonts/9ec8c537-b1e8-41c2-a48b-b5d0a7c4a8fe.woff2") format('woff2');
+  unicode-range: U+0370-0377, U+037A-037F, U+0384-038A, U+038C, U+038E-03A1, U+03A3-03FF;
+}
+/* vietnamese */
+@font-face {
+  font-family: 'JetBrains Mono';
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+  src: url("assets/fonts/ebcb5cf1-ce29-4241-98be-af1e6ad54102.woff2") format('woff2');
+  unicode-range: U+0102-0103, U+0110-0111, U+0128-0129, U+0168-0169, U+01A0-01A1, U+01AF-01B0, U+0300-0301, U+0303-0304, U+0308-0309, U+0323, U+0329, U+1EA0-1EF9, U+20AB;
+}
+/* latin-ext */
+@font-face {
+  font-family: 'JetBrains Mono';
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+  src: url("assets/fonts/06c72750-bc94-4ced-b821-9bf13c5d34e3.woff2") format('woff2');
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+/* latin */
+@font-face {
+  font-family: 'JetBrains Mono';
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+  src: url("assets/fonts/a83f8cb4-0e1a-48b0-b2a4-3f346bbf5bc3.woff2") format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+/* cyrillic-ext */
+@font-face {
+  font-family: 'JetBrains Mono';
+  font-style: normal;
+  font-weight: 600;
+  font-display: swap;
+  src: url("assets/fonts/4d532faa-e209-4235-859d-dbf03a24802d.woff2") format('woff2');
+  unicode-range: U+0460-052F, U+1C80-1C8A, U+20B4, U+2DE0-2DFF, U+A640-A69F, U+FE2E-FE2F;
+}
+/* cyrillic */
+@font-face {
+  font-family: 'JetBrains Mono';
+  font-style: normal;
+  font-weight: 600;
+  font-display: swap;
+  src: url("assets/fonts/e444961e-c531-4132-9845-4f473d756691.woff2") format('woff2');
+  unicode-range: U+0301, U+0400-045F, U+0490-0491, U+04B0-04B1, U+2116;
+}
+/* greek */
+@font-face {
+  font-family: 'JetBrains Mono';
+  font-style: normal;
+  font-weight: 600;
+  font-display: swap;
+  src: url("assets/fonts/9ec8c537-b1e8-41c2-a48b-b5d0a7c4a8fe.woff2") format('woff2');
+  unicode-range: U+0370-0377, U+037A-037F, U+0384-038A, U+038C, U+038E-03A1, U+03A3-03FF;
+}
+/* vietnamese */
+@font-face {
+  font-family: 'JetBrains Mono';
+  font-style: normal;
+  font-weight: 600;
+  font-display: swap;
+  src: url("assets/fonts/ebcb5cf1-ce29-4241-98be-af1e6ad54102.woff2") format('woff2');
+  unicode-range: U+0102-0103, U+0110-0111, U+0128-0129, U+0168-0169, U+01A0-01A1, U+01AF-01B0, U+0300-0301, U+0303-0304, U+0308-0309, U+0323, U+0329, U+1EA0-1EF9, U+20AB;
+}
+/* latin-ext */
+@font-face {
+  font-family: 'JetBrains Mono';
+  font-style: normal;
+  font-weight: 600;
+  font-display: swap;
+  src: url("assets/fonts/06c72750-bc94-4ced-b821-9bf13c5d34e3.woff2") format('woff2');
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+/* latin */
+@font-face {
+  font-family: 'JetBrains Mono';
+  font-style: normal;
+  font-weight: 600;
+  font-display: swap;
+  src: url("assets/fonts/a83f8cb4-0e1a-48b0-b2a4-3f346bbf5bc3.woff2") format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+</style>
+  <style>
+/* ── Sistema de diseño ────────────────────────────────────────────────────
+   Estructura de tokens y componentes al estilo shadcn/ui + Tailwind
+   (superficie neutra, borde de 1px, radios suaves, sombras mínimas),
+   con la paleta de marca Ogilvy como único color: rojo, negro, grises.  */
+
+:root{
+  --bg:#FFFFFF;
+  --bg-sub:#FAFAFA;
+  --fg:#09090B;
+  --muted:#F4F4F5;
+  --muted-fg:#71717A;
+  --border:#E4E4E7;
+  --border-str:#D4D4D8;
+
+  --primary:#EF3B3A;
+  --primary-ink:#D42E2D;
+  --primary-fg:#FFFFFF;
+  --primary-soft:#FEF2F2;
+  --primary-soft-fg:#B42B2A;
+  --primary-soft-bd:#FBD5D5;
+
+  --ok:#15803D;
+  --ok-soft:#F1FAF3;
+  --ok-bd:#BFE3C9;
+
+  --ink:#18181B;
+  --ink-fg:#FAFAFA;
+
+  --side:#09090B;
+  --side-fg:#FAFAFA;
+  --side-muted:#A1A1AA;
+  --side-item:#1C1C1F;
+  --side-border:#27272A;
+
+  --r-sm:6px; --r:8px; --r-md:10px; --r-lg:12px; --r-xl:16px;
+  --sh-sm:0 1px 2px 0 rgba(9,9,11,.05);
+  --sh:0 1px 3px 0 rgba(9,9,11,.08),0 1px 2px -1px rgba(9,9,11,.06);
+  --sh-lg:0 16px 40px -18px rgba(9,9,11,.28);
+  --sh-xl:0 28px 70px -30px rgba(9,9,11,.45);
+}
+
+*{box-sizing:border-box;}
+body{margin:0;background:var(--bg-sub);color:var(--fg);font-family:"Instrument Sans",system-ui,sans-serif;font-size:14px;line-height:1.5;-webkit-font-smoothing:antialiased;}
+h1,h2,h3,h4,p{margin:0;}
+a{color:var(--primary);text-decoration:none;}
+button,input,select,textarea{font-family:inherit;color:inherit;}
+:focus-visible{outline:2px solid var(--primary);outline-offset:2px;}
+::selection{background:var(--primary);color:#fff;}
+::-webkit-scrollbar{width:10px;height:10px;}
+::-webkit-scrollbar-thumb{background:var(--border-str);border-radius:99px;border:3px solid transparent;background-clip:content-box;}
+@media (prefers-reduced-motion:reduce){*{transition:none !important;animation:none !important;}}
+
+/* Tipografía utilitaria */
+.mono{font-family:"JetBrains Mono",ui-monospace,monospace;font-variant-numeric:tabular-nums;}
+.num{font-variant-numeric:tabular-nums;}
+.t-xs{font-size:12px;line-height:1.45;}
+.t-sm{font-size:13px;line-height:1.5;}
+.t-base{font-size:14px;}
+.t-lg{font-size:16px;letter-spacing:-.01em;}
+.t-xl{font-size:19px;letter-spacing:-.015em;}
+.t-2xl{font-size:24px;letter-spacing:-.02em;line-height:1.2;}
+.t-3xl{font-size:32px;letter-spacing:-.025em;line-height:1.1;}
+.med{font-weight:500;}
+.semi{font-weight:600;}
+.mut{color:var(--muted-fg);}
+.red{color:var(--primary-soft-fg);}
+.ink{color:var(--fg);}
+.trunc{overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
+
+/* Layout */
+.app{display:flex;min-height:100vh;background:var(--bg-sub);}
+.main{flex:1;min-width:0;display:flex;flex-direction:column;}
+.wrap{width:100%;max-width:1320px;margin:0 auto;padding:24px 28px 72px;}
+.row{display:flex;align-items:center;gap:10px;}
+.row-b{display:flex;align-items:center;justify-content:space-between;gap:14px;flex-wrap:wrap;}
+.col{display:flex;flex-direction:column;}
+.wrapx{flex-wrap:wrap;}
+.grow{min-width:0;flex:1;}
+.stack-1>*+*{margin-top:4px;}
+.stack-2>*+*{margin-top:8px;}
+.stack-3>*+*{margin-top:12px;}
+.stack-4>*+*{margin-top:16px;}
+.stack-6>*+*{margin-top:24px;}
+
+/* Barra lateral */
+.side{width:248px;flex:none;background:var(--side);color:var(--side-fg);display:flex;flex-direction:column;gap:22px;padding:20px 14px;position:sticky;top:0;align-self:flex-start;height:100vh;}
+.side-lab{font-size:11px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:#52525B;padding:0 8px;}
+.side-item{display:flex;align-items:center;gap:10px;width:100%;text-align:left;border:none;border-radius:var(--r);cursor:pointer;font-size:13.5px;font-weight:500;padding:9px 10px;background:transparent;color:var(--side-muted);transition:background-color .15s,color .15s;}
+.side-item:hover{background:#141417;color:var(--side-fg);}
+.side-item.on{background:var(--side-item);color:var(--side-fg);}
+.side-dot{width:6px;height:6px;border-radius:2px;background:var(--primary);flex:none;}
+.side-dot.off{background:#3F3F46;}
+.side-badge{margin-left:auto;font-size:12px;font-weight:600;border-radius:99px;padding:1px 8px;background:#27272A;color:var(--side-muted);}
+.side-badge.on{background:var(--primary);color:#fff;}
+.side-card{border:1px solid var(--side-border);border-radius:var(--r-lg);padding:12px;background:#0F0F12;}
+.side-user{display:flex;align-items:center;gap:10px;padding:0 4px;}
+.avatar{width:32px;height:32px;border-radius:var(--r);background:var(--side-item);border:1px solid var(--side-border);color:var(--side-fg);display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:600;flex:none;}
+
+/* Tarjetas */
+.card{background:var(--bg);border:1px solid var(--border);border-radius:var(--r-lg);box-shadow:var(--sh-sm);}
+.card-p{padding:18px;}
+.card-p-lg{padding:22px;}
+.card-hd{padding:16px 18px;border-bottom:1px solid var(--border);}
+.card-ttl{font-size:14px;font-weight:600;letter-spacing:-.01em;}
+.card-sub{font-size:12.5px;color:var(--muted-fg);margin-top:2px;}
+.hover-card{transition:border-color .15s,box-shadow .15s;}
+.hover-card:hover{border-color:var(--border-str);box-shadow:var(--sh);}
+
+/* Botones */
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:7px;height:36px;padding:0 14px;border-radius:var(--r);border:1px solid transparent;background:transparent;font-size:13.5px;font-weight:500;cursor:pointer;white-space:nowrap;transition:background-color .15s,border-color .15s,color .15s,box-shadow .15s;}
+.btn:disabled{opacity:.5;cursor:default;}
+.btn-out{border-color:var(--border);background:var(--bg);color:var(--fg);box-shadow:var(--sh-sm);}
+.btn-out:hover{background:var(--muted);}
+.btn-pri{background:var(--primary);color:var(--primary-fg);box-shadow:var(--sh-sm);}
+.btn-pri:hover{background:var(--primary-ink);}
+.btn-dark{background:var(--ink);color:var(--ink-fg);box-shadow:var(--sh-sm);}
+.btn-dark:hover{background:#000;}
+.btn-ghost{color:var(--muted-fg);}
+.btn-ghost:hover{background:var(--muted);color:var(--fg);}
+.btn-sm{height:32px;padding:0 11px;font-size:12.5px;}
+.btn-xs{height:28px;padding:0 9px;font-size:12px;border-radius:var(--r-sm);}
+.btn-ico{width:34px;height:34px;padding:0;}
+.btn-link{border:none;background:none;padding:0;height:auto;font-size:12.5px;font-weight:600;color:var(--muted-fg);cursor:pointer;}
+.btn-link:hover{color:var(--primary);}
+.btn-link.red{color:var(--primary);}
+
+/* Acceso de prueba */
+.acceso{display:flex;flex-direction:column;align-items:flex-start;gap:1px;width:100%;text-align:left;border:1px solid var(--border);background:var(--bg);color:var(--fg);border-radius:var(--r);padding:9px 11px;cursor:pointer;line-height:1.35;white-space:normal;box-shadow:var(--sh-sm);transition:background-color .15s,border-color .15s,color .15s;}
+.acceso:hover{background:var(--muted);}
+.acceso.on{background:var(--ink);border-color:var(--ink);color:var(--ink-fg);}
+
+/* Distintivos */
+.badge{display:inline-flex;align-items:center;gap:5px;border-radius:var(--r-sm);padding:2px 9px;font-size:11.5px;font-weight:600;border:1px solid transparent;white-space:nowrap;}
+.badge-mut{background:var(--muted);color:var(--muted-fg);}
+.badge-out{border-color:var(--border);color:var(--muted-fg);background:var(--bg);}
+.badge-dark{background:var(--ink);color:var(--ink-fg);}
+.badge-red{background:var(--primary);color:#fff;}
+.badge-soft{background:var(--primary-soft);color:var(--primary-soft-fg);border-color:var(--primary-soft-bd);}
+
+/* Pestañas y segmentos */
+.tabs{display:inline-flex;gap:2px;background:var(--muted);padding:3px;border-radius:var(--r-md);}
+.tab{white-space:nowrap;height:32px;padding:0 14px;border:none;border-radius:var(--r-sm);background:transparent;color:var(--muted-fg);font-size:13px;font-weight:500;cursor:pointer;transition:background-color .15s,color .15s,box-shadow .15s;}
+.tab:hover{color:var(--fg);}
+.tab.on{background:var(--bg);color:var(--fg);box-shadow:var(--sh-sm);}
+.chip{height:28px;display:inline-flex;align-items:center;padding:0 11px;border-radius:99px;border:1px solid var(--border);background:var(--bg);color:var(--muted-fg);font-size:12px;font-weight:500;cursor:pointer;transition:background-color .15s,border-color .15s,color .15s;}
+.chip:hover{border-color:var(--border-str);color:var(--fg);}
+.chip.on{background:var(--ink);border-color:var(--ink);color:var(--ink-fg);}
+
+/* Barras de progreso */
+.bar{height:8px;border-radius:99px;background:var(--muted);overflow:hidden;}
+.bar>i{display:block;height:100%;border-radius:99px;background:var(--ink);transition:width .3s linear;}
+.bar.sm{height:5px;}
+.bar.xs{height:4px;}
+.bar.red>i{background:var(--primary);}
+.bar.soft{background:var(--primary-soft);}
+.bar.wait>i{background:var(--border-str);}
+
+/* Formularios */
+.inp,.sel,.txt{width:100%;border:1px solid var(--border);border-radius:var(--r);background:var(--bg);font-size:13.5px;transition:border-color .15s,box-shadow .15s;}
+.inp,.sel{height:36px;padding:0 11px;}
+.txt{padding:10px 11px;min-height:76px;resize:vertical;line-height:1.5;}
+.inp:focus,.sel:focus,.txt:focus{outline:none;border-color:var(--fg);box-shadow:0 0 0 3px rgba(9,9,11,.07);}
+.lab{display:block;font-size:12px;font-weight:500;color:var(--fg);margin-bottom:6px;}
+.drop{border:1.5px dashed var(--border-str);background:var(--bg-sub);border-radius:var(--r-lg);padding:26px;text-align:center;font-size:13px;color:var(--muted-fg);cursor:pointer;transition:border-color .15s,background-color .15s;}
+.drop:hover{border-color:var(--fg);background:var(--muted);}
+
+/* Tabla */
+.tbl{width:100%;border-collapse:collapse;font-size:13px;}
+.tbl th{text-align:left;font-size:11.5px;font-weight:500;color:var(--muted-fg);padding:9px 8px;border-bottom:1px solid var(--border);}
+.tbl td{padding:10px 8px;border-bottom:1px solid var(--muted);}
+.tbl tr:last-child td{border-bottom:none;}
+.r{text-align:right;}
+
+/* Cronómetro compacto de la página */
+.tmr{border:1px solid var(--border);background:var(--bg);border-radius:var(--r-lg);padding:13px 16px;box-shadow:var(--sh-sm);margin-bottom:14px;}
+.tmr.ok{border-color:var(--ok-bd);}
+.tmr.late{border-color:var(--primary-soft-bd);background:var(--primary-soft);}
+.tmr-val{font-size:21px;font-weight:600;letter-spacing:-.02em;line-height:1;}
+.tmr-val.ok{color:var(--ok);}
+.tmr-val.late{color:var(--primary-soft-fg);}
+.tmr-dot{width:8px;height:8px;border-radius:50%;flex:none;background:var(--border-str);}
+.tmr-dot.ok{background:var(--ok);}
+.tmr-dot.late{background:var(--primary);}
+.bar.ok>i{background:var(--ok);}
+
+/* Cadena de aprobación vertical */
+.vstep{display:flex;gap:10px;position:relative;padding-bottom:13px;}
+.vstep:last-child{padding-bottom:0;}
+.vstep::before{content:"";position:absolute;left:10px;top:24px;bottom:2px;width:1px;background:var(--border);}
+.vstep:last-child::before{display:none;}
+.vstep.done::before{background:var(--ink);}
+
+/* Indicador de cadena de aprobación */
+.step{position:relative;display:flex;align-items:flex-start;gap:9px;flex:1;min-width:112px;}
+.step-n{width:22px;height:22px;border-radius:50%;flex:none;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:600;border:1px solid var(--border-str);background:var(--bg);color:var(--muted-fg);}
+.step.on .step-n{background:var(--primary);border-color:var(--primary);color:#fff;box-shadow:0 0 0 4px var(--primary-soft);}
+.step.done .step-n{background:var(--ink);border-color:var(--ink);color:#fff;}
+.step-l{font-size:12.5px;font-weight:600;line-height:1.25;}
+.step.wait .step-l{color:var(--muted-fg);font-weight:500;}
+.step-m{display:block;font-size:11px;font-weight:400;color:var(--muted-fg);margin-top:1px;}
+.step-line{flex:1;height:1px;background:var(--border);margin:11px 4px 0;min-width:10px;}
+
+/* Rejilla de páginas */
+.grid-pg{display:grid;grid-template-columns:repeat(auto-fill,minmax(190px,1fr));gap:16px;}
+.split{display:grid;grid-template-columns:minmax(0,2fr) minmax(262px,.78fr);gap:18px;align-items:start;}
+@media (max-width:1080px){.split{grid-template-columns:minmax(0,1fr);}}
+@media (max-width:820px){.side{position:static;height:auto;width:200px;}.wrap{padding:20px 16px 64px;}}
+.pg-card{border:1px solid var(--border);background:var(--bg);border-radius:var(--r-lg);padding:7px;text-align:left;cursor:pointer;display:block;box-shadow:var(--sh-sm);transition:border-color .15s,box-shadow .15s,transform .15s;}
+.pg-card:hover{border-color:var(--border-str);box-shadow:var(--sh-lg);transform:translateY(-1px);}
+.pg-art{position:relative;aspect-ratio:359/700;background:var(--muted);border-radius:var(--r);overflow:hidden;}
+.pg-tag{position:absolute;top:7px;left:7px;background:rgba(9,9,11,.82);color:#fff;font-size:11.5px;font-weight:600;border-radius:var(--r-sm);padding:2px 7px;backdrop-filter:blur(4px);}
+.pg-cnt{position:absolute;top:7px;right:7px;background:var(--primary);color:#fff;font-size:11.5px;font-weight:600;border-radius:99px;min-width:20px;height:20px;display:flex;align-items:center;justify-content:center;padding:0 6px;}
+.pg-lock{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;background:rgba(250,250,250,.55);}
+.pg-lock span{background:rgba(255,255,255,.95);border:1px solid var(--border);color:var(--muted-fg);font-size:11px;font-weight:600;border-radius:99px;padding:3px 10px;}
+.pg-time{position:absolute;bottom:7px;right:7px;font-size:11px;font-weight:600;border-radius:var(--r-sm);padding:2px 7px;background:rgba(9,9,11,.82);color:#fff;backdrop-filter:blur(4px);}
+.pg-time.late{background:var(--primary);}
+
+/* Lienzo de revisión */
+.canvas-wrap{overflow:auto;padding:20px;background:#0F0F12;border-radius:0 0 var(--r-lg) var(--r-lg);}
+.canvas{position:relative;margin:0 auto;background:#fff;border-radius:var(--r-sm);aspect-ratio:359/700;overflow:hidden;box-shadow:var(--sh-xl);}
+.cmp-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:16px;}
+.cmp-lab{display:flex;align-items:center;gap:7px;margin-bottom:8px;font-size:11.5px;font-weight:600;color:var(--muted-fg);}
+.cmp-pane{position:relative;width:100%;aspect-ratio:359/700;border-radius:var(--r-sm);overflow:hidden;background:#fff;box-shadow:var(--sh-xl);}
+.cmp-box{position:absolute;border:2px solid var(--primary);border-radius:var(--r-sm);background:rgba(239,59,58,.12);box-shadow:0 0 0 4px rgba(239,59,58,.14);}
+.cmp-box>span{position:absolute;top:-10px;left:-10px;width:20px;height:20px;border-radius:50%;background:var(--primary);color:#fff;font-size:11px;font-weight:600;display:flex;align-items:center;justify-content:center;}
+.cortina{position:relative;width:min(420px,100%);margin:0 auto;aspect-ratio:359/700;border-radius:var(--r-sm);overflow:hidden;cursor:ew-resize;user-select:none;box-shadow:var(--sh-xl);background:#fff;}
+.cortina-a{position:absolute;inset:0;background-size:cover;background-position:center;}
+.cortina-hd{position:absolute;top:0;bottom:0;width:2px;background:#fff;box-shadow:0 0 0 1px rgba(9,9,11,.25);pointer-events:none;}
+.cortina-hd::after{content:"";position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:30px;height:30px;border-radius:50%;background:#fff;box-shadow:var(--sh);}
+.cortina-tag{position:absolute;top:10px;font-size:11px;font-weight:600;background:rgba(9,9,11,.8);color:#fff;border-radius:var(--r-sm);padding:2px 8px;}
+
+/* Comentarios */
+.cmt{border:1px solid var(--border);border-radius:var(--r-lg);padding:14px;background:var(--bg);}
+.cmt.open{border-color:var(--primary-soft-bd);background:#FFFCFC;}
+.cmt.ppd{border-color:var(--ink);}
+.cmt-quote{border-left:2px solid var(--ink);padding:5px 0 5px 10px;}
+.cmt-reply{background:var(--muted);border-radius:var(--r);padding:9px 11px;}
+
+/* Bitácora */
+.log-row{display:grid;grid-template-columns:86px 8px minmax(0,1fr) auto;gap:12px;align-items:center;padding:10px 0;border-bottom:1px solid var(--muted);}
+.log-dot{width:7px;height:7px;border-radius:50%;background:var(--border-str);}
+.log-dot.red{background:var(--primary);}
+.log-dot.ink{background:var(--ink);}
+
+/* Indicadores del reporte */
+.kpi{border:1px solid var(--border);background:var(--bg);border-radius:var(--r-lg);padding:16px;box-shadow:var(--sh-sm);}
+.kpi.dark{background:var(--ink);border-color:var(--ink);color:var(--ink-fg);}
+.kpi.red{background:var(--primary);border-color:var(--primary);color:#fff;}
+.kpi b{display:block;font-size:27px;font-weight:600;letter-spacing:-.03em;line-height:1;font-variant-numeric:tabular-nums;}
+.kpi span{display:block;font-size:12px;margin-top:6px;opacity:.75;}
+
+/* Diálogos */
+.ov{position:fixed;inset:0;background:rgba(9,9,11,.55);backdrop-filter:blur(2px);z-index:70;display:flex;align-items:center;justify-content:center;padding:24px;}
+.dlg{width:min(560px,100%);max-height:88vh;overflow:auto;background:var(--bg);border:1px solid var(--border);border-radius:var(--r-xl);box-shadow:var(--sh-xl);}
+.dlg-hd{display:flex;align-items:flex-start;justify-content:space-between;gap:12px;padding:20px 22px 0;}
+.dlg-bd{padding:16px 22px 22px;}
+.dlg-ft{display:flex;justify-content:flex-end;gap:8px;margin-top:20px;}
+.toast{position:fixed;left:50%;bottom:24px;transform:translateX(-50%);background:var(--ink);color:var(--ink-fg);font-size:13px;font-weight:500;padding:11px 18px;border-radius:var(--r-md);z-index:80;box-shadow:var(--sh-lg);}
+
+/* Aviso */
+.note{display:flex;align-items:flex-start;gap:9px;border:1px solid var(--border);background:var(--bg);border-radius:var(--r-md);padding:11px 13px;}
+.note.warn{border-color:var(--primary-soft-bd);background:var(--primary-soft);}
+.warn-bg{background:var(--primary-soft);}
+.crono-big{font-size:30px;font-weight:600;letter-spacing:-.02em;line-height:1;}
+  </style>
+</helmet>
+
+<div class="app">
+  <sc-if value="{{ loggedIn }}">
+    <aside class="side">
+      <div class="row" style="padding:2px 6px 0;">
+        <img src="assets/logo-ogilvy.png" alt="Ogilvy" style="height:16px;width:auto;display:block;filter:brightness(0) invert(1);">
+        <span style="width:1px;height:16px;background:var(--side-border);display:block;"></span>
+        <span style="background:#fff;border-radius:var(--r-sm);padding:5px 8px;display:flex;align-items:center;">
+          <img src="assets/logo-cencosud.webp" alt="Cencosud" style="height:16px;width:auto;display:block;">
+        </span>
+      </div>
+
+      <div class="col" style="gap:2px;">
+        <span class="side-lab" style="margin-bottom:8px;">Trabajo</span>
+        <button sc-camel-on-click="{{ onNavCatalogos }}" class="{{ navCatalogosClase }}">
+          <span class="side-dot"></span>
+          Catálogos
+          <span class="{{ navBadgeClase }}">{{ navPendientes }}</span>
+        </button>
+        <button sc-camel-on-click="{{ onNavNoti }}" class="{{ navNotiClase }}">
+          <span class="side-dot off"></span>
+          Notificaciones
+          <sc-if value="{{ hayNoLeidas }}">
+            <span class="{{ navNotiBadgeClase }}">{{ notiPendientes }}</span>
+          </sc-if>
+        </button>
+        <sc-if value="{{ esAgencia }}">
+          <button sc-camel-on-click="{{ onNuevoCatalogo }}" class="{{ navNuevoClase }}">
+            <span class="side-dot off"></span>
+            Nuevo catálogo
+          </button>
+          <button sc-camel-on-click="{{ onNavSla }}" class="{{ navSlaClase }}">
+            <span class="side-dot off"></span>
+            Tiempos de ajuste
+          </button>
+        </sc-if>
+        <p class="t-xs" style="color:var(--side-muted);padding:10px 10px 0;">{{ bandejaLabel }}</p>
+        <p class="t-xs" style="color:#52525B;padding:6px 10px 0;">{{ horarioTexto }}</p>
+      </div>
+
+      <div class="col" style="margin-top:auto;gap:14px;">
+        <div class="side-card">
+          <p class="side-lab" style="padding:0;margin-bottom:9px;">Ronda de revisión</p>
+          <div class="bar sm" style="background:#27272A;margin-bottom:8px;">
+            <i class="{{ progresoClase }}" style="{{ progresoAncho }}"></i>
+          </div>
+          <p class="t-xs" style="color:var(--side-muted);">{{ progresoLabel }}</p>
+        </div>
+        <div class="side-user">
+          <span class="avatar">{{ sesionIniciales }}</span>
+          <span class="grow" style="line-height:1.3;">
+            <b class="t-sm semi" style="display:block;">{{ sesionNombre }}</b>
+            <span class="t-xs trunc" style="display:block;color:var(--side-muted);">{{ sesionRol }}</span>
+            <span class="t-xs trunc" style="display:block;color:#52525B;">{{ sesionCategorias }}</span>
+          </span>
+          <button sc-camel-on-click="{{ onLogout }}" class="btn btn-sm btn-ghost" style="color:var(--side-muted);">Salir</button>
+        </div>
+      </div>
+    </aside>
+  </sc-if>
+
+  <div class="main">
+
+  <sc-if value="{{ isLogin }}" hint-placeholder-val="{{ true }}">
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(340px,1fr));min-height:100vh;">
+      <div style="display:flex;align-items:center;justify-content:center;padding:44px 32px;background:var(--bg);">
+        <div style="width:min(384px,100%);">
+          <div class="row" style="margin-bottom:28px;">
+            <img src="assets/logo-ogilvy.png" alt="Ogilvy" style="height:17px;width:auto;display:block;">
+            <span style="width:1px;height:16px;background:var(--border);display:block;"></span>
+            <img src="assets/logo-cencosud.webp" alt="Cencosud" style="height:15px;width:auto;display:block;">
+          </div>
+          <h2 class="t-2xl semi" style="margin-bottom:6px;">Entra a revisar</h2>
+          <p class="t-sm mut" style="margin-bottom:24px;">Catálogos impresos de Cencosud, con los comentarios sobre la página misma.</p>
+
+          <label class="lab" for="loginEmail">Correo</label>
+          <input id="loginEmail" class="inp" type="email" value="{{ loginEmail }}" sc-camel-on-change="{{ onLoginEmail }}" placeholder="nombre@empresa.com" style="margin-bottom:14px;">
+          <label class="lab" for="loginPass">Contraseña</label>
+          <input id="loginPass" class="inp" type="password" value="{{ loginPass }}" sc-camel-on-change="{{ onLoginPass }}" placeholder="••••••••" style="margin-bottom:8px;">
+          <p class="t-xs" style="color:var(--primary);min-height:16px;margin-bottom:10px;">{{ loginHint }}</p>
+          <button sc-camel-on-click="{{ onLoginSubmit }}" class="btn btn-pri" style="width:100%;">Ingresar</button>
+
+          <div style="margin-top:24px;padding-top:20px;border-top:1px solid var(--border);">
+            <span class="t-xs mut semi" style="display:block;margin-bottom:10px;">Acceso de prueba — cada rol ve la plataforma distinto</span>
+            <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:8px;">
+              <sc-for list="{{ accesos }}" as="a" hint-placeholder-count="5">
+                <button sc-camel-on-click="{{ a.onClick }}" class="{{ a.clase }}">
+                  <b class="t-xs semi">{{ a.label }}</b>
+                  <span class="t-xs" style="opacity:.75;">{{ a.nombre }}</span>
+                  <span class="t-xs" style="opacity:.55;">{{ a.sectores }}</span>
+                </button>
+              </sc-for>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div style="background:var(--side);display:flex;align-items:center;justify-content:center;padding:44px 32px;overflow:hidden;">
+        <div style="width:min(420px,100%);">
+          <div class="row" style="margin-bottom:16px;">
+            <span class="badge badge-red">Ronda 2</span>
+            <span class="t-xs" style="color:var(--side-muted);">Jumbo · Octavilla 18–21 Jun</span>
+          </div>
+          <div style="position:relative;border-radius:var(--r-lg);overflow:hidden;border:1px solid var(--side-border);background:#101013;box-shadow:var(--sh-xl);">
+            <div class="row" style="gap:6px;padding:10px 13px;border-bottom:1px solid var(--side-border);">
+              <span style="width:8px;height:8px;border-radius:50%;background:var(--primary);display:block;"></span>
+              <span style="width:8px;height:8px;border-radius:50%;background:#3F3F46;display:block;"></span>
+              <span style="width:8px;height:8px;border-radius:50%;background:#3F3F46;display:block;"></span>
+              <span class="t-xs mono" style="margin-left:6px;color:var(--side-muted);">página 04 · v2</span>
+            </div>
+            <div style="position:relative;padding:20px;">
+              <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;">
+                <div style="height:92px;border-radius:var(--r);background:#1C1C20;"></div>
+                <div style="height:92px;border-radius:var(--r);background:#1C1C20;"></div>
+                <div style="height:92px;border-radius:var(--r);background:#1C1C20;border:2px solid var(--primary);box-shadow:0 0 0 5px rgba(239,59,58,.16);"></div>
+                <div style="height:92px;border-radius:var(--r);background:#1C1C20;"></div>
+              </div>
+              <span style="position:absolute;left:14px;bottom:92px;width:24px;height:24px;border-radius:50%;background:var(--primary);color:#fff;font-size:11px;font-weight:600;display:flex;align-items:center;justify-content:center;">1</span>
+              <span style="position:absolute;right:18px;top:26px;width:24px;height:24px;border-radius:50%;background:#fff;color:var(--fg);font-size:11px;font-weight:600;display:flex;align-items:center;justify-content:center;">2</span>
+            </div>
+            <div style="border-top:1px solid var(--side-border);padding:13px;display:flex;gap:10px;align-items:flex-start;">
+              <span class="avatar" style="width:26px;height:26px;background:var(--primary);border-color:var(--primary);">AS</span>
+              <span class="grow">
+                <b class="t-xs semi" style="display:block;color:var(--side-fg);">Valeria Ortiz · precio</b>
+                <span class="t-xs" style="display:block;color:var(--side-muted);">La cerveza Heineken x6 debe quedar en $23.990.</span>
+              </span>
+            </div>
+            <div style="border-top:1px solid var(--side-border);padding:13px;">
+              <div class="row-b" style="margin-bottom:7px;">
+                <span class="t-xs" style="color:var(--side-muted);">Tiempo de ajuste</span>
+                <span class="t-xs mono" style="color:#fff;">00:28:14</span>
+              </div>
+              <div class="bar sm" style="background:#27272A;"><i style="width:62%;background:var(--primary);"></i></div>
+            </div>
+          </div>
+          <div class="row wrapx" style="gap:7px;margin-top:14px;">
+            <span class="badge" style="background:#141417;color:var(--side-muted);border-color:var(--side-border);">Pins sobre la página</span>
+            <span class="badge" style="background:#141417;color:var(--side-muted);border-color:var(--side-border);">Cronómetro por ajuste</span>
+            <span class="badge" style="background:#141417;color:var(--side-muted);border-color:var(--side-border);">Comparación de versiones</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </sc-if>
+
+  <sc-if value="{{ isLista }}">
+    <div class="wrap" style="max-width:1140px;padding-top:32px;">
+      <div class="row-b" style="align-items:flex-end;margin-bottom:22px;">
+        <div>
+          <h2 class="t-2xl semi">Catálogos</h2>
+          <p class="t-sm mut" style="margin-top:4px;">{{ listaResumen }}</p>
+        </div>
+        <div class="row wrapx">
+          <input class="inp" type="search" value="{{ busqueda }}" sc-camel-on-change="{{ onBuscar }}" placeholder="Buscar catálogo o cliente…" style="width:236px;">
+          <sc-if value="{{ esAgencia }}">
+            <button sc-camel-on-click="{{ onNuevoCatalogo }}" class="btn btn-pri">Nuevo catálogo</button>
+          </sc-if>
+        </div>
+      </div>
+
+      <div class="col" style="gap:10px;">
+        <sc-for list="{{ listaCatalogos }}" as="cat" hint-placeholder-count="3">
+          <div class="card hover-card card-p" style="display:grid;grid-template-columns:minmax(0,1fr) auto;gap:18px;align-items:center;">
+            <div class="grow">
+              <div class="row wrapx" style="gap:8px;margin-bottom:7px;">
+                <span class="{{ cat.pillClase }}">{{ cat.estadoTexto }}</span>
+                <span class="t-xs mut">{{ cat.cliente }} · {{ cat.paginasLabel }} · cargado {{ cat.cargaLabel }}</span>
+              </div>
+              <h3 class="t-lg semi" style="margin-bottom:11px;">{{ cat.nombre }}</h3>
+              <div class="row wrapx" style="gap:13px;">
+                <div class="bar sm" style="width:172px;max-width:44vw;"><i class="{{ cat.progresoClase }}" style="{{ cat.progresoAncho }}"></i></div>
+                <span class="t-xs mono mut">{{ cat.aprobLabel }} aprobadas</span>
+                <span class="{{ cat.pendClase }}">{{ cat.abiertos }} pendientes</span>
+                <span class="t-xs mono mut">{{ cat.total }} ajustes</span>
+              </div>
+            </div>
+            <div class="row" style="gap:8px;">
+              <button sc-camel-on-click="{{ cat.onShare }}" class="btn btn-out btn-sm">Compartir</button>
+              <button sc-camel-on-click="{{ cat.onEnter }}" class="btn btn-dark btn-sm">Abrir</button>
+            </div>
+          </div>
+        </sc-for>
+        <sc-if value="{{ listaVacia }}">
+          <p class="t-sm mut" style="padding:32px 2px;">Ningún catálogo coincide con la búsqueda.</p>
+        </sc-if>
+      </div>
+    </div>
+  </sc-if>
+
+  <sc-if value="{{ isCatalogo }}">
+    <div>
+      <div style="background:var(--bg);border-bottom:1px solid var(--border);padding:16px 28px 0;position:sticky;top:0;z-index:20;">
+        <div style="max-width:1320px;margin:0 auto;">
+          <div class="row-b" style="align-items:flex-start;">
+            <div class="grow">
+              <div class="row t-xs mut" style="gap:7px;margin-bottom:5px;">
+                <button sc-camel-on-click="{{ onVolver }}" class="btn-link">Catálogos</button>
+                <span>/</span>
+                <span>{{ catCliente }}</span>
+              </div>
+              <h2 class="t-xl semi">{{ catNombre }}</h2>
+              <p class="t-xs mut" style="margin-top:3px;">{{ catMeta }}</p>
+            </div>
+            <div class="row wrapx" style="gap:8px;">
+              <span class="badge badge-soft">{{ catAbiertos }} pendientes</span>
+              <span class="badge badge-mut mono">{{ catAprobLabel }} aprobadas</span>
+              <button sc-camel-on-click="{{ onShareAqui }}" class="btn btn-out btn-sm">Compartir</button>
+            </div>
+          </div>
+          <nav class="tabs" style="margin:14px 0 -1px;">
+            <button sc-camel-on-click="{{ onTabPaginas }}" class="{{ tabPaginasClase }}">Páginas</button>
+            <button sc-camel-on-click="{{ onTabPagina }}" class="{{ tabPaginaClase }}">Revisión</button>
+            <button sc-camel-on-click="{{ onTabReporte }}" class="{{ tabReporteClase }}">Reporte</button>
+          </nav>
+        </div>
+      </div>
+
+      <div class="wrap">
+        <sc-if value="{{ isTabPaginas }}" hint-placeholder-val="{{ true }}">
+          <div class="grid-pg">
+            <sc-for list="{{ gridPaginas }}" as="pg" hint-placeholder-count="0">
+              <button sc-camel-on-click="{{ pg.onOpen }}" class="pg-card">
+                <div class="pg-art">
+                  <div role="img" aria-label="Página del catálogo" style="{{ pg.thumbStyle }}"></div>
+                  <span class="pg-tag mono">{{ pg.numeroLabel }}</span>
+                  <sc-if value="{{ pg.tienePend }}">
+                    <span class="pg-cnt mono">{{ pg.abiertos }}</span>
+                  </sc-if>
+                  <sc-if value="{{ pg.sinAcceso }}">
+                    <span class="pg-lock"><span>Otra categoría</span></span>
+                  </sc-if>
+                  <sc-if value="{{ pg.tieneCrono }}">
+                    <span class="{{ pg.cronoClase }}">{{ pg.cronoLabel }}</span>
+                  </sc-if>
+                </div>
+                <div style="padding:10px 4px 4px;">
+                  <div class="row-b" style="gap:8px;margin-bottom:8px;">
+                    <span class="t-xs semi">{{ pg.categoriaLabel }}</span>
+                    <span class="t-xs mono mut">{{ pg.versionLabel }}</span>
+                  </div>
+                  <div class="row" style="gap:6px;">
+                    <span class="{{ pg.etapaClase }}">{{ pg.etapaLabel }}</span>
+                    <sc-if value="{{ pg.tieneDefecto }}">
+                      <span class="badge badge-dark">PPD</span>
+                    </sc-if>
+                  </div>
+                  <sc-if value="{{ pg.tieneCrono }}">
+                    <div class="{{ pg.barraPistaClase }}" style="margin-top:9px;"><i class="{{ pg.barraClase }}" style="{{ pg.barraAncho }}"></i></div>
+                  </sc-if>
+                </div>
+              </button>
+            </sc-for>
+          </div>
+        </sc-if>
+
+        <sc-if value="{{ isTabPagina }}">
+          <div class="split">
+            <div class="grow">
+
+              <div class="row-b" style="margin-bottom:14px;">
+                <div class="row">
+                  <div style="display:inline-flex;border:1px solid var(--border);border-radius:var(--r);overflow:hidden;background:var(--bg);box-shadow:var(--sh-sm);">
+                    <button sc-camel-on-click="{{ onPrevPage }}" class="btn btn-ico" style="border-radius:0;">‹</button>
+                    <button sc-camel-on-click="{{ onNextPage }}" class="btn btn-ico" style="border-radius:0;border-left:1px solid var(--border);">›</button>
+                  </div>
+                  <div>
+                    <h3 class="t-lg semi">{{ pagTitulo }}</h3>
+                    <span class="t-xs mut">{{ pagSubtitulo }}</span>
+                  </div>
+                </div>
+                <div class="row wrapx" style="gap:8px;">
+                  <sc-if value="{{ puedeDibujar }}">
+                    <button sc-camel-on-click="{{ onToggleDraw }}" class="{{ drawClase }}">{{ drawLabel }}</button>
+                  </sc-if>
+                  <sc-if value="{{ puedeAprobar }}">
+                    <button sc-camel-on-click="{{ onAprobar }}" class="btn btn-out btn-sm">Aprobar página</button>
+                  </sc-if>
+                  <sc-if value="{{ puedeReabrir }}">
+                    <button sc-camel-on-click="{{ onReabrir }}" class="btn btn-dark btn-sm">Post Production Defect</button>
+                  </sc-if>
+                  <sc-if value="{{ puedeNuevaVersion }}">
+                    <button sc-camel-on-click="{{ onNuevaVersion }}" class="btn btn-pri btn-sm">Nueva versión</button>
+                  </sc-if>
+                </div>
+              </div>
+
+              <sc-if value="{{ sinAcceso }}">
+                <div class="note" style="margin-bottom:14px;">
+                  <span style="width:7px;height:7px;border-radius:50%;background:var(--muted-fg);display:block;flex:none;margin-top:6px;"></span>
+                  <span class="t-xs">{{ sinAccesoLabel }}</span>
+                </div>
+              </sc-if>
+
+              <sc-if value="{{ pagCerrada }}">
+                <div class="note" style="margin-bottom:14px;">
+                  <span style="width:7px;height:7px;border-radius:50%;background:var(--ink);display:block;flex:none;margin-top:6px;"></span>
+                  <span class="t-xs">{{ pagCerradaLabel }}</span>
+                </div>
+              </sc-if>
+
+              <sc-if value="{{ fueraDeHorario }}">
+                <div class="note warn" style="margin-bottom:14px;">
+                  <span style="width:7px;height:7px;border-radius:50%;background:var(--primary);display:block;flex:none;margin-top:6px;"></span>
+                  <span class="t-xs" style="color:var(--primary-soft-fg);">{{ horarioTexto }}</span>
+                </div>
+              </sc-if>
+
+              <sc-if value="{{ hayCrono }}">
+                <div class="{{ cronoCajaClase }}">
+                  <div class="row-b" style="gap:12px;margin-bottom:9px;">
+                    <span class="row" style="gap:8px;">
+                      <span class="{{ cronoDotClase }}"></span>
+                      <span class="t-xs semi">{{ cronoTitulo }}</span>
+                      <span class="t-xs mut">{{ cronoDetalle }}</span>
+                    </span>
+                    <span class="{{ cronoRelojClase }}">{{ cronoReloj }}</span>
+                  </div>
+                  <div class="{{ cronoPistaClase }}"><i style="{{ cronoBarraAncho }}"></i></div>
+                </div>
+              </sc-if>
+
+              <div class="card">
+                <div class="row-b" style="padding:9px 11px;border-bottom:1px solid var(--border);">
+                  <div class="tabs">
+                    <button sc-camel-on-click="{{ onModoRevision }}" class="{{ modoRevisionClase }}">Revisión</button>
+                    <sc-if value="{{ puedeComparar }}">
+                      <button sc-camel-on-click="{{ onModoComparar }}" class="{{ modoCompararClase }}">Comparar</button>
+                    </sc-if>
+                  </div>
+                  <div class="row wrapx" style="gap:6px;justify-content:flex-end;">
+                    <sc-for list="{{ versiones }}" as="v" hint-placeholder-count="2">
+                      <button sc-camel-on-click="{{ v.onSelect }}" class="{{ v.clase }}"><span class="mono">{{ v.label }}</span></button>
+                    </sc-for>
+                    <sc-if value="{{ modoRevision }}">
+                      <div style="display:inline-flex;align-items:center;border:1px solid var(--border);border-radius:var(--r);overflow:hidden;">
+                        <button sc-camel-on-click="{{ onZoomOut }}" class="btn btn-sm" style="width:28px;padding:0;border-radius:0;">−</button>
+                        <button sc-camel-on-click="{{ onZoomReset }}" class="btn btn-sm mono" style="min-width:50px;border-radius:0;border-left:1px solid var(--border);border-right:1px solid var(--border);background:var(--bg-sub);">{{ zoomLabel }}</button>
+                        <button sc-camel-on-click="{{ onZoomIn }}" class="btn btn-sm" style="width:28px;padding:0;border-radius:0;">+</button>
+                      </div>
+                    </sc-if>
+                  </div>
+                </div>
+
+                <sc-if value="{{ esHistorica }}">
+                  <div class="note warn" style="border-radius:0;border-left:none;border-right:none;border-top:none;">
+                    <span style="width:7px;height:7px;border-radius:50%;background:var(--primary);display:block;flex:none;margin-top:6px;"></span>
+                    <span class="t-xs" style="color:var(--primary-soft-fg);">{{ historicaLabel }}</span>
+                  </div>
+                </sc-if>
+
+                <sc-if value="{{ modoRevision }}">
+                  <div class="canvas-wrap">
+                    <div class="canvas" style="{{ canvasStyle }}">
+                      <div role="img" aria-label="Página del catálogo en revisión" style="{{ imgStyle }}"></div>
+                      <div sc-camel-on-mouse-down="{{ onDrawStart }}" sc-camel-on-mouse-move="{{ onDrawMove }}" sc-camel-on-mouse-up="{{ onDrawEnd }}" style="{{ overlayStyle }}">
+                        <sc-for list="{{ boxes }}" as="b" hint-placeholder-count="0">
+                          <div sc-camel-on-click="{{ b.onClick }}" style="{{ b.style }}"><span style="{{ b.numStyle }}">{{ b.num }}</span></div>
+                        </sc-for>
+                        <sc-if value="{{ hayTempBox }}">
+                          <div style="{{ tempBoxStyle }}"></div>
+                        </sc-if>
+                      </div>
+                      <sc-if value="{{ hayDraft }}">
+                        <div style="{{ draftStyle }}">
+                          <p class="t-xs semi mut" style="margin-bottom:9px;">Nuevo ajuste</p>
+                          <sc-raw-select class="sel" value="{{ draftTipo }}" sc-camel-on-change="{{ onDraftTipo }}" style="margin-bottom:8px;">
+                            <option value="precio">Precio</option>
+                            <option value="descripcion">Descripción</option>
+                            <option value="imagen">Imagen</option>
+                            <option value="diseno">Ajustes de diseño</option>
+                            <option value="otro">Otro</option>
+                          </sc-raw-select>
+                          <textarea class="txt" value="{{ draftTexto }}" sc-camel-on-change="{{ onDraftTexto }}" placeholder="Describe el ajuste…" style="min-height:66px;margin-bottom:9px;"></textarea>
+                          <div class="row" style="justify-content:flex-end;gap:7px;">
+                            <button sc-camel-on-click="{{ onDraftCancel }}" class="btn btn-out btn-sm">Cancelar</button>
+                            <button sc-camel-on-click="{{ onDraftSend }}" class="btn btn-pri btn-sm">Publicar</button>
+                          </div>
+                        </div>
+                      </sc-if>
+                    </div>
+                  </div>
+                </sc-if>
+
+                <sc-if value="{{ modoComparar }}">
+                  <div style="padding:14px 16px;border-bottom:1px solid var(--border);">
+                    <div class="row-b">
+                      <div class="row" style="gap:8px;">
+                        <span class="{{ cmpEstadoClase }}">{{ cmpEstado }}</span>
+                      </div>
+                      <div class="row" style="gap:8px;">
+                        <span class="t-xs mut">contra</span>
+                        <sc-raw-select class="sel" value="{{ cmpContra }}" sc-camel-on-change="{{ onCmpContra }}" style="width:auto;height:30px;font-size:12.5px;">
+                          <sc-for list="{{ cmpOpciones }}" as="o" hint-placeholder-count="2">
+                            <option value="{{ o.value }}">{{ o.label }}</option>
+                          </sc-for>
+                        </sc-raw-select>
+                        <div class="tabs" style="padding:2px;">
+                          <button sc-camel-on-click="{{ onCmpLado }}" class="{{ cmpLadoClase }}" style="height:26px;padding:0 10px;font-size:12px;">Lado a lado</button>
+                          <button sc-camel-on-click="{{ onCmpCortina }}" class="{{ cmpCortinaClase }}" style="height:26px;padding:0 10px;font-size:12px;">Cortina</button>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="canvas-wrap">
+                    <sc-if value="{{ cmpEsLado }}">
+                      <div class="cmp-grid">
+                        <div>
+                          <span class="cmp-lab"><span class="badge badge-out mono">{{ cmpAlabel }}</span> anterior</span>
+                          <div class="cmp-pane" style="{{ cmpAstyle }}"></div>
+                        </div>
+                        <div>
+                          <span class="cmp-lab"><span class="badge badge-dark mono">{{ cmpBlabel }}</span> nueva · cambios marcados</span>
+                          <div class="cmp-pane" style="{{ cmpBstyle }}">
+                            <sc-for list="{{ cmpCajas }}" as="b" hint-placeholder-count="0">
+                              <div class="cmp-box" style="{{ b.style }}"><span>{{ b.num }}</span></div>
+                            </sc-for>
+                          </div>
+                        </div>
+                      </div>
+                    </sc-if>
+                    <sc-if value="{{ cmpEsCortina }}">
+                      <div class="cortina" style="{{ cmpBstyle }}" sc-camel-on-mouse-down="{{ onCortinaDown }}" sc-camel-on-mouse-move="{{ onCortinaMove }}" sc-camel-on-mouse-up="{{ onCortinaUp }}">
+                        <div class="cortina-a" style="{{ cmpCortinaAstyle }}"></div>
+                        <sc-for list="{{ cmpCajas }}" as="b" hint-placeholder-count="0">
+                          <div class="cmp-box" style="{{ b.style }}"><span>{{ b.num }}</span></div>
+                        </sc-for>
+                        <div class="cortina-hd" style="{{ cmpCortinaHandle }}"></div>
+                        <span class="cortina-tag mono" style="left:10px;">{{ cmpAlabel }}</span>
+                        <span class="cortina-tag mono" style="right:10px;">{{ cmpBlabel }}</span>
+                      </div>
+                    </sc-if>
+                  </div>
+
+                  <div class="card-p">
+                    <p class="t-xs semi" style="margin-bottom:9px;">Ajustes que se resolvieron en {{ cmpBlabel }}</p>
+                    <div class="col" style="gap:7px;">
+                      <sc-for list="{{ cmpResueltos }}" as="r" hint-placeholder-count="0">
+                        <div style="border:1px solid var(--border);border-radius:var(--r);padding:10px 12px;">
+                          <span class="badge badge-soft">{{ r.label }}</span>
+                          <p class="t-sm" style="margin:6px 0 4px;">{{ r.texto }}</p>
+                          <span class="t-xs mut">{{ r.meta }}</span>
+                        </div>
+                      </sc-for>
+                      <sc-if value="{{ cmpSinResueltos }}">
+                        <p class="t-xs mut">Esta versión no cerró ningún ajuste registrado.</p>
+                      </sc-if>
+                    </div>
+                  </div>
+                </sc-if>
+              </div>
+            </div>
+
+            <div class="col" style="gap:14px;">
+              <div class="card">
+                <div class="card-p">
+                  <div class="row-b" style="margin-bottom:12px;">
+                    <span class="t-xs semi mut">Aprobación</span>
+                    <span class="{{ ubicClase }}">{{ ubicLabel }}</span>
+                  </div>
+                  <sc-if value="{{ cadenaSuspendida }}">
+                    <p class="t-xs mut" style="margin-bottom:12px;padding-bottom:10px;border-bottom:1px solid var(--muted);">{{ cadenaNota }}</p>
+                  </sc-if>
+                  <sc-for list="{{ cadena }}" as="p" hint-placeholder-count="3">
+                    <div class="{{ p.clase }}">
+                      <span class="step-n">{{ p.n }}</span>
+                      <span class="grow" style="padding-top:2px;">
+                        <span class="step-l">{{ p.label }}<span class="step-m">{{ p.meta }}</span></span>
+                      </span>
+                    </div>
+                  </sc-for>
+                </div>
+                <div class="card-p" style="border-top:1px solid var(--border);">
+                  <div class="row-b t-xs" style="padding:4px 0;"><span class="mut">Categoría</span><b class="semi">{{ pagCategoria }}</b></div>
+                  <div class="row-b t-xs" style="padding:4px 0;"><span class="mut">Versión actual</span><b class="semi mono">{{ pagVersionActual }}</b></div>
+                  <div class="row-b t-xs" style="padding:4px 0;"><span class="mut">Ajustes</span><b class="semi">{{ pagAjustes }}</b></div>
+                </div>
+              </div>
+
+              <div class="card">
+                <div class="card-hd">
+                  <p class="card-ttl">Ajustes de la página</p>
+                  <p class="card-sub">Todas las versiones, no solo la que ves.</p>
+                </div>
+                <div class="card-p">
+                  <div class="tabs" style="display:flex;margin-bottom:8px;">
+                    <sc-for list="{{ filtrosEstado }}" as="f" hint-placeholder-count="3">
+                      <button sc-camel-on-click="{{ f.onClick }}" class="{{ f.clase }}" style="flex:1;padding:0 8px;">{{ f.label }}</button>
+                    </sc-for>
+                  </div>
+                  <sc-raw-select class="sel" value="{{ filtroTipo }}" sc-camel-on-change="{{ onFiltroTipo }}" style="height:32px;font-size:12.5px;margin-bottom:14px;">
+                    <sc-for list="{{ opcionesTipo }}" as="o" hint-placeholder-count="6">
+                      <option value="{{ o.value }}">{{ o.label }}</option>
+                    </sc-for>
+                  </sc-raw-select>
+                  <div class="col" style="gap:11px;max-height:620px;overflow-y:auto;">
+                    <sc-for list="{{ comentarios }}" as="c" hint-placeholder-count="2">
+                      <div class="{{ c.wrapClase }}">
+                        <div class="row-b" style="gap:8px;margin-bottom:6px;">
+                          <span class="t-xs semi">{{ c.head }}</span>
+                          <span class="{{ c.estadoClase }}">{{ c.estadoLabel }}</span>
+                        </div>
+                        <p class="t-sm" style="margin-bottom:9px;">{{ c.texto }}</p>
+                        <sc-if value="{{ c.esDefecto }}">
+                          <span class="badge badge-dark" style="margin-bottom:9px;">Defecto post-producción</span>
+                        </sc-if>
+                        <p class="t-xs mut" style="margin-bottom:8px;">{{ c.rutaLabel }}</p>
+                        <sc-if value="{{ c.tieneCrono }}">
+                          <div style="margin-bottom:10px;">
+                            <div class="row-b" style="gap:8px;margin-bottom:4px;">
+                              <span class="t-xs mut">{{ c.slaLabel }}</span>
+                              <span class="{{ c.cronoClase }}">{{ c.cronoLabel }}</span>
+                            </div>
+                            <div class="{{ c.pistaClase }}"><i class="{{ c.barraClase }}" style="{{ c.barraAncho }}"></i></div>
+                          </div>
+                        </sc-if>
+                        <sc-for list="{{ c.validaciones }}" as="x" hint-placeholder-count="0">
+                          <div class="cmt-quote" style="margin-bottom:8px;">
+                            <p class="t-sm">{{ x.texto }}</p>
+                            <span class="t-xs mut">{{ x.meta }}</span>
+                          </div>
+                        </sc-for>
+                        <sc-for list="{{ c.respuestas }}" as="r" hint-placeholder-count="0">
+                          <div class="cmt-reply" style="margin-bottom:8px;">
+                            <p class="t-sm">{{ r.texto }}</p>
+                            <span class="t-xs mut">{{ r.meta }}</span>
+                          </div>
+                        </sc-for>
+                        <div class="row-b" style="gap:8px;">
+                          <span class="t-xs mut">{{ c.meta }}</span>
+                          <div class="row" style="gap:10px;">
+                            <sc-if value="{{ c.puedeResponder }}">
+                              <button sc-camel-on-click="{{ c.onReply }}" class="btn-link">Responder</button>
+                            </sc-if>
+                            <sc-if value="{{ c.puedeValidar }}">
+                              <button sc-camel-on-click="{{ c.onValidar }}" class="btn-link red">Validar y enviar</button>
+                            </sc-if>
+                            <sc-if value="{{ c.puedeResolver }}">
+                              <button sc-camel-on-click="{{ c.onResolver }}" class="btn-link red">Resolver</button>
+                            </sc-if>
+                          </div>
+                        </div>
+                        <sc-if value="{{ c.replyOpen }}">
+                          <div style="margin-top:10px;">
+                            <textarea class="txt" value="{{ replyText }}" sc-camel-on-change="{{ onReplyText }}" placeholder="Escribe tu respuesta…" style="min-height:56px;margin-bottom:8px;"></textarea>
+                            <div class="row" style="justify-content:flex-end;gap:7px;">
+                              <button sc-camel-on-click="{{ onReplyCancel }}" class="btn btn-out btn-sm">Cancelar</button>
+                              <button sc-camel-on-click="{{ c.onReplySend }}" class="btn btn-dark btn-sm">Responder</button>
+                            </div>
+                          </div>
+                        </sc-if>
+                      </div>
+                    </sc-for>
+                    <sc-if value="{{ sinComentarios }}">
+                      <p class="t-xs mut" style="padding:12px 0;">Sin ajustes en este filtro.</p>
+                    </sc-if>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </sc-if>
+
+        <sc-if value="{{ isTabReporte }}">
+          <div>
+            <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(156px,1fr));gap:10px;margin-bottom:24px;">
+              <sc-for list="{{ tiles }}" as="t" hint-placeholder-count="5">
+                <div class="{{ t.clase }}">
+                  <b>{{ t.valor }}</b>
+                  <span>{{ t.label }}</span>
+                </div>
+              </sc-for>
+            </div>
+
+            <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:16px;margin-bottom:16px;">
+              <div class="card">
+                <div class="card-hd">
+                  <p class="card-ttl">Ajustes por categoría</p>
+                  <p class="card-sub">Categoría fijada por el ejecutivo al cargar cada página.</p>
+                </div>
+                <div class="card-p">
+                  <div class="col" style="gap:12px;">
+                    <sc-for list="{{ barras }}" as="b" hint-placeholder-count="4">
+                      <div style="display:grid;grid-template-columns:88px minmax(0,1fr) 28px;align-items:center;gap:12px;">
+                        <span class="t-xs">{{ b.label }}</span>
+                        <div class="bar"><i class="{{ b.clase }}" style="{{ b.ancho }}"></i></div>
+                        <span class="t-xs semi mono r">{{ b.valor }}</span>
+                      </div>
+                    </sc-for>
+                  </div>
+                </div>
+              </div>
+
+              <div class="card">
+                <div class="card-hd">
+                  <div class="row-b" style="align-items:flex-start;">
+                    <div>
+                      <p class="card-ttl">Ajustes por página</p>
+                      <p class="card-sub">Base del reporte mensual que recibe el analista de datos.</p>
+                    </div>
+                    <button sc-camel-on-click="{{ onVerReporte }}" class="btn btn-pri btn-sm">Reporte mensual</button>
+                  </div>
+                </div>
+                <div class="card-p" style="overflow-x:auto;">
+                  <sc-raw-table class="tbl">
+                    <sc-raw-thead>
+                      <sc-raw-tr>
+                        <sc-raw-th>Página</sc-raw-th>
+                        <sc-raw-th>Categoría</sc-raw-th>
+                        <sc-raw-th>Versión</sc-raw-th>
+                        <sc-raw-th class="r">Ajustes</sc-raw-th>
+                        <sc-raw-th class="r">Pend.</sc-raw-th>
+                      </sc-raw-tr>
+                    </sc-raw-thead>
+                    <sc-raw-tbody>
+                      <sc-for list="{{ tablaPaginas }}" as="r" hint-placeholder-count="6">
+                        <sc-raw-tr>
+                          <sc-raw-td class="semi">{{ r.pagina }}</sc-raw-td>
+                          <sc-raw-td class="mut">{{ r.categoria }}</sc-raw-td>
+                          <sc-raw-td class="mono mut">{{ r.version }}</sc-raw-td>
+                          <sc-raw-td class="r num">{{ r.total }}</sc-raw-td>
+                          <sc-raw-td class="{{ r.pendClase }}">{{ r.abiertos }}</sc-raw-td>
+                        </sc-raw-tr>
+                      </sc-for>
+                    </sc-raw-tbody>
+                  </sc-raw-table>
+                </div>
+              </div>
+            </div>
+
+            <div class="card">
+              <div class="card-hd">
+                <div class="row-b" style="align-items:flex-start;">
+                  <div>
+                    <p class="card-ttl">Bitácora</p>
+                    <p class="card-sub">Registro de lo ocurrido en cada página — fuente del reporte.</p>
+                  </div>
+                  <sc-raw-select class="sel" value="{{ logFiltro }}" sc-camel-on-change="{{ onLogFiltro }}" style="width:auto;height:32px;font-size:12.5px;">
+                    <option value="todas">Todas las páginas</option>
+                    <sc-for list="{{ logOpciones }}" as="o" hint-placeholder-count="0">
+                      <option value="{{ o.value }}">{{ o.label }}</option>
+                    </sc-for>
+                  </sc-raw-select>
+                </div>
+              </div>
+              <div class="card-p">
+                <sc-for list="{{ bitacora }}" as="l" hint-placeholder-count="6">
+                  <div class="log-row">
+                    <span class="t-xs mono mut">{{ l.fecha }}</span>
+                    <span class="{{ l.dotClase }}"></span>
+                    <span class="t-sm"><b class="semi">{{ l.pagina }}</b> <span class="mut">{{ l.texto }}</span></span>
+                    <span class="t-xs mut r">{{ l.autor }}</span>
+                  </div>
+                </sc-for>
+              </div>
+            </div>
+          </div>
+        </sc-if>
+      </div>
+    </div>
+  </sc-if>
+
+  <sc-if value="{{ isWizard }}">
+    <div class="wrap" style="max-width:1020px;padding-top:32px;">
+      <button sc-camel-on-click="{{ onWizardCancel }}" class="btn-link" style="margin-bottom:16px;">← Cancelar</button>
+      <h2 class="t-2xl semi" style="margin-bottom:6px;">Cargar catálogo</h2>
+      <p class="t-sm mut" style="margin-bottom:22px;">Las páginas entran a la ronda de revisión apenas se publican.</p>
+      <div class="tabs" style="margin-bottom:24px;">
+        <sc-for list="{{ wizardPasos }}" as="p" hint-placeholder-count="3">
+          <span class="{{ p.clase }}"><b class="mono" style="color:var(--primary);">{{ p.n }}</b> {{ p.label }}</span>
+        </sc-for>
+      </div>
+
+      <sc-if value="{{ wPaso1 }}">
+        <div style="max-width:460px;">
+          <label class="lab">Nombre del catálogo</label>
+          <input class="inp" type="text" value="{{ wNombre }}" sc-camel-on-change="{{ onWNombre }}" placeholder="Ej. Jumbo · Octavilla 25–28 Sep 2026" style="margin-bottom:16px;">
+          <label class="lab">Cliente</label>
+          <sc-raw-select class="sel" value="{{ wCliente }}" sc-camel-on-change="{{ onWCliente }}" style="margin-bottom:20px;">
+            <option value="Cencosud (Jumbo)">Cencosud (Jumbo)</option>
+            <option value="Cencosud (Metro)">Cencosud (Metro)</option>
+          </sc-raw-select>
+          <button sc-camel-on-click="{{ onWStep2 }}" class="btn btn-pri">Continuar</button>
+        </div>
+      </sc-if>
+
+      <sc-if value="{{ wPaso2 }}">
+        <div>
+          <div sc-camel-on-click="{{ onPickFiles }}" class="drop" style="margin-bottom:14px;">Haz clic para elegir las imágenes del catálogo — puedes seleccionar varias</div>
+          <input type="file" accept="image/*" multiple="" sc-camel-on-change="{{ onFilesChange }}" ref="{{ fileRef }}" style="display:none;">
+          <p class="t-xs semi mut" style="margin-bottom:14px;">{{ wCount }}</p>
+          <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(146px,1fr));gap:14px;margin-bottom:20px;">
+            <sc-for list="{{ wPaginas }}" as="p" hint-placeholder-count="0">
+              <div class="card" style="overflow:hidden;">
+                <div role="img" aria-label="Página cargada" style="{{ p.artStyle }}"></div>
+                <div class="t-xs semi mut" style="padding:8px 10px;">{{ p.label }}</div>
+              </div>
+            </sc-for>
+          </div>
+          <div class="row-b">
+            <button sc-camel-on-click="{{ onWStep1 }}" class="btn btn-out">← Atrás</button>
+            <button sc-camel-on-click="{{ onWStep3 }}" class="btn btn-pri">Continuar</button>
+          </div>
+        </div>
+      </sc-if>
+
+      <sc-if value="{{ wPaso3 }}">
+        <div>
+          <p class="t-sm mut" style="margin-bottom:16px;">Marca los sectores de cada página. Puede tener más de uno — es normal que una hoja lleve Bazar, Textil y Electro juntos. De ahí sale el conteo del reporte y el permiso de cada comercial.</p>
+          <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(166px,1fr));gap:14px;margin-bottom:20px;">
+            <sc-for list="{{ wPaginas }}" as="p" hint-placeholder-count="0">
+              <div class="card" style="overflow:hidden;">
+                <div role="img" aria-label="Página cargada" style="{{ p.artStyle }}"></div>
+                <div style="padding:8px 10px 4px;">
+                  <div class="t-xs semi mut">{{ p.label }}</div>
+                  <div class="{{ p.resumenClase }}">{{ p.resumen }}</div>
+                </div>
+                <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--border);border-top:1px solid var(--border);">
+                  <sc-for list="{{ p.cats }}" as="c" hint-placeholder-count="5">
+                    <button sc-camel-on-click="{{ c.onClick }}" class="{{ c.clase }}">{{ c.abbr }}</button>
+                  </sc-for>
+                </div>
+              </div>
+            </sc-for>
+          </div>
+          <div class="row-b">
+            <button sc-camel-on-click="{{ onWStep2 }}" class="btn btn-out">← Atrás</button>
+            <span class="t-xs semi mut">{{ wCatCount }}</span>
+            <button sc-camel-on-click="{{ onWPublicar }}" class="btn btn-dark">Publicar catálogo</button>
+          </div>
+        </div>
+      </sc-if>
+    </div>
+  </sc-if>
+
+  </div>
+
+  <sc-if value="{{ hayModal }}">
+    <div sc-camel-on-click="{{ onCloseModal }}" class="ov">
+      <div sc-camel-on-click="{{ stopClick }}" class="dlg">
+        <div class="dlg-hd">
+          <h3 class="t-lg semi">{{ modalTitulo }}</h3>
+          <button sc-camel-on-click="{{ onCloseModal }}" class="btn btn-ghost btn-sm" style="width:28px;padding:0;">✕</button>
+        </div>
+        <div class="dlg-bd">
+          <sc-if value="{{ modalShare }}">
+            <div>
+              <p class="t-sm mut" style="margin-bottom:14px;">{{ shareTexto }}</p>
+              <div class="row" style="gap:8px;margin-bottom:10px;">
+                <input class="inp mono grow" type="text" readonly="true" value="{{ shareUrl }}" style="font-size:12.5px;">
+                <button sc-camel-on-click="{{ onCopiar }}" class="btn btn-dark">Copiar</button>
+              </div>
+              <p class="t-xs mut">Al abrirlo, la herramienta pide inicio de sesión y entra directo a este catálogo.</p>
+            </div>
+          </sc-if>
+
+          <sc-if value="{{ modalVersion }}">
+            <div>
+              <div sc-camel-on-click="{{ onPickVersionFile }}" class="drop" style="margin-bottom:14px;">{{ versionDropLabel }}</div>
+              <input type="file" accept="image/*" sc-camel-on-change="{{ onVersionFile }}" ref="{{ versionFileRef }}" style="display:none;">
+              <p class="t-sm mut" style="margin-bottom:10px;">{{ versionTexto }}</p>
+              <sc-for list="{{ versionPendientes }}" as="c" hint-placeholder-count="0">
+                <label class="row" style="align-items:flex-start;gap:10px;padding:9px 0;border-bottom:1px solid var(--border);">
+                  <input type="checkbox" checked="{{ c.checked }}" sc-camel-on-change="{{ c.onToggle }}" style="margin-top:3px;accent-color:#EF3B3A;flex:none;">
+                  <span class="t-sm"><b class="semi">{{ c.tipo }}:</b> {{ c.texto }}</span>
+                </label>
+              </sc-for>
+              <div class="dlg-ft">
+                <button sc-camel-on-click="{{ onCloseModal }}" class="btn btn-out">Cancelar</button>
+                <button sc-camel-on-click="{{ onConfirmVersion }}" class="{{ confirmVersionClase }}">Confirmar carga</button>
+              </div>
+            </div>
+          </sc-if>
+
+          <sc-if value="{{ modalAprobar }}">
+            <div>
+              <p class="t-sm mut" style="margin-bottom:14px;">{{ aprobarTexto }}</p>
+              <div class="card card-p" style="background:var(--bg-sub);box-shadow:none;">
+                <div class="row-b t-xs" style="padding:4px 0;"><span class="mut">Página</span><b class="semi">{{ aprobarPagina }}</b></div>
+                <div class="row-b t-xs" style="padding:4px 0;"><span class="mut">Versión</span><b class="semi mono">{{ aprobarVersion }}</b></div>
+                <div class="row-b t-xs" style="padding:4px 0;"><span class="mut">Ajustes pendientes</span><b class="{{ aprobarPendClase }}">{{ aprobarPendientes }}</b></div>
+                <div class="row-b t-xs" style="padding:4px 0;"><span class="mut">Pasa a</span><b class="semi">{{ aprobarSiguiente }}</b></div>
+              </div>
+              <p class="t-xs mut" style="margin-top:12px;">Queda registrado en el historial de la página con tu nombre y la fecha.</p>
+              <div class="dlg-ft">
+                <button sc-camel-on-click="{{ onCloseModal }}" class="btn btn-out">Cancelar</button>
+                <button sc-camel-on-click="{{ onConfirmAprobar }}" class="btn btn-pri">{{ aprobarCta }}</button>
+              </div>
+            </div>
+          </sc-if>
+
+          <sc-if value="{{ modalDefecto }}">
+            <div>
+              <p class="t-sm mut" style="margin-bottom:14px;">{{ defectoInfo }}</p>
+              <label class="lab">Tipo de defecto</label>
+              <sc-raw-select class="sel" value="{{ defectoTipo }}" sc-camel-on-change="{{ onDefectoTipo }}" style="margin-bottom:14px;">
+                <option value="precio">Precio</option>
+                <option value="descripcion">Descripción</option>
+                <option value="imagen">Imagen</option>
+                <option value="diseno">Ajustes de diseño</option>
+                <option value="otro">Otro</option>
+              </sc-raw-select>
+              <label class="lab">Qué se encontró</label>
+              <textarea class="txt" value="{{ defectoTexto }}" sc-camel-on-change="{{ onDefectoTexto }}" placeholder="Describe el defecto detectado sobre la página ya aprobada…"></textarea>
+              <div class="dlg-ft">
+                <button sc-camel-on-click="{{ onCloseModal }}" class="btn btn-out">Cancelar</button>
+                <button sc-camel-on-click="{{ onConfirmDefecto }}" class="btn btn-dark">Reabrir página</button>
+              </div>
+            </div>
+          </sc-if>
+
+          <sc-if value="{{ modalNoti }}">
+            <div>
+              <p class="t-sm mut" style="margin-bottom:14px;">{{ notiTexto }}</p>
+              <div class="col" style="gap:8px;">
+                <sc-for list="{{ notiAcciones }}" as="a" hint-placeholder-count="3">
+                  <button sc-camel-on-click="{{ a.onAbrir }}" class="card hover-card" style="text-align:left;cursor:pointer;padding:12px 14px;display:flex;align-items:center;gap:12px;width:100%;">
+                    <span class="grow">
+                      <b class="t-sm semi" style="display:block;">{{ a.titulo }}</b>
+                      <span class="t-xs mut">{{ a.detalle }}</span>
+                    </span>
+                    <span class="{{ a.relojClase }}">{{ a.reloj }}</span>
+                  </button>
+                </sc-for>
+              </div>
+              <p class="t-xs semi mut" style="margin:20px 0 8px;">Actividad reciente</p>
+              <sc-for list="{{ notiEventos }}" as="e" hint-placeholder-count="5">
+                <div class="row" style="align-items:flex-start;gap:10px;padding:8px 0;border-bottom:1px solid var(--muted);">
+                  <span class="{{ e.dotClase }}" style="margin-top:6px;"></span>
+                  <span class="grow">
+                    <span class="t-sm" style="display:block;">{{ e.texto }}</span>
+                    <span class="t-xs mut">{{ e.meta }}</span>
+                  </span>
+                </div>
+              </sc-for>
+              <sc-if value="{{ notiSinEventos }}">
+                <p class="t-xs mut">Todavía no hay movimientos registrados para tu equipo.</p>
+              </sc-if>
+              <div class="dlg-ft">
+                <button sc-camel-on-click="{{ onCloseModal }}" class="btn btn-dark">Listo</button>
+              </div>
+            </div>
+          </sc-if>
+
+          <sc-if value="{{ modalSla }}">
+            <div>
+              <p class="t-sm mut" style="margin-bottom:16px;">{{ slaTexto }}</p>
+
+              <span class="t-xs semi mut" style="display:block;margin-bottom:4px;">Ejecución en Ogilvy, por tipo de ajuste</span>
+              <sc-for list="{{ slaFilas }}" as="f" hint-placeholder-count="5">
+                <div class="row-b" style="padding:10px 0;border-bottom:1px solid var(--border);">
+                  <b class="t-sm semi">{{ f.label }}</b>
+                  <div class="row" style="gap:8px;">
+                    <input class="inp mono" type="number" min="1" value="{{ f.valor }}" sc-camel-on-change="{{ f.onChange }}" style="width:86px;height:32px;text-align:right;">
+                    <span class="t-xs mut" style="min-width:62px;">min · {{ f.equivalente }}</span>
+                  </div>
+                </div>
+              </sc-for>
+              <span class="t-xs semi mut" style="display:block;margin:20px 0 4px;">Plazos del cliente</span>
+              <sc-for list="{{ slaCliente }}" as="f" hint-placeholder-count="4">
+                <div class="row-b" style="padding:10px 0;border-bottom:1px solid var(--border);">
+                  <b class="t-sm semi">{{ f.label }}</b>
+                  <div class="row" style="gap:8px;">
+                    <input class="inp mono" type="number" min="1" value="{{ f.valor }}" sc-camel-on-change="{{ f.onChange }}" style="width:86px;height:32px;text-align:right;">
+                    <span class="t-xs mut" style="min-width:62px;">min · {{ f.equivalente }}</span>
+                  </div>
+                </div>
+              </sc-for>
+
+              <div class="note" style="margin-top:20px;align-items:flex-start;">
+                <div class="grow">
+                  <b class="t-xs semi" style="display:block;">Horario laboral</b>
+                  <span class="t-xs mut">{{ horarioResumen }}</span>
+                </div>
+                <button sc-camel-on-click="{{ onForzarFuera }}" class="{{ forzarFueraClase }}" style="flex:none;">{{ forzarFueraLabel }}</button>
+              </div>
+
+              <div class="note" style="margin-top:10px;align-items:center;">
+                <div class="grow">
+                  <b class="t-xs semi" style="display:block;">Velocidad de demostración</b>
+                  <span class="t-xs mut">Acelera el reloj del prototipo para ver correr los cronómetros sin esperar en tiempo real. No existe en el sistema final.</span>
+                </div>
+                <div class="tabs" style="flex:none;">
+                  <sc-for list="{{ velocidades }}" as="x" hint-placeholder-count="3">
+                    <button sc-camel-on-click="{{ x.onClick }}" class="{{ x.clase }}" style="height:26px;padding:0 10px;font-size:12px;">{{ x.label }}</button>
+                  </sc-for>
+                </div>
+              </div>
+              <div class="dlg-ft">
+                <button sc-camel-on-click="{{ onCloseModal }}" class="btn btn-dark">Listo</button>
+              </div>
+            </div>
+          </sc-if>
+
+          <sc-if value="{{ modalReporte }}">
+            <div>
+              <p class="t-sm mut" style="margin-bottom:14px;">{{ reporteResumen }}</p>
+              <div style="overflow-x:auto;">
+                <sc-raw-table class="tbl">
+                  <sc-raw-thead>
+                    <sc-raw-tr>
+                      <sc-raw-th>Página</sc-raw-th>
+                      <sc-raw-th>Categoría</sc-raw-th>
+                      <sc-raw-th class="r">Ajustes</sc-raw-th>
+                      <sc-raw-th class="r">Pend.</sc-raw-th>
+                      <sc-raw-th class="r">Versión</sc-raw-th>
+                      <sc-raw-th>Estado</sc-raw-th>
+                    </sc-raw-tr>
+                  </sc-raw-thead>
+                  <sc-raw-tbody>
+                    <sc-for list="{{ reporteFilas }}" as="r" hint-placeholder-count="4">
+                      <sc-raw-tr>
+                        <sc-raw-td class="semi">{{ r.pagina }}</sc-raw-td>
+                        <sc-raw-td class="mut">{{ r.categoria }}</sc-raw-td>
+                        <sc-raw-td class="r num">{{ r.total }}</sc-raw-td>
+                        <sc-raw-td class="r num">{{ r.abiertos }}</sc-raw-td>
+                        <sc-raw-td class="r mono mut">{{ r.version }}</sc-raw-td>
+                        <sc-raw-td>{{ r.aprobada }}</sc-raw-td>
+                      </sc-raw-tr>
+                    </sc-for>
+                  </sc-raw-tbody>
+                </sc-raw-table>
+              </div>
+              <div class="dlg-ft">
+                <button sc-camel-on-click="{{ onDescargarCSV }}" class="btn btn-out">Descargar CSV</button>
+                <button sc-camel-on-click="{{ onCloseModal }}" class="btn btn-dark">Cerrar</button>
+              </div>
+            </div>
+          </sc-if>
+        </div>
+      </div>
+    </div>
+  </sc-if>
+
+  <sc-if value="{{ hayToast }}">
+    <div class="toast">{{ toastMsg }}</div>
+  </sc-if>
+</div>
+
+<script type="text/x-dc" data-dc-script="" data-props="{&quot;densidad&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;Cómoda&quot;,&quot;Compacta&quot;],&quot;default&quot;:&quot;Cómoda&quot;,&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;Prototipo&quot;},&quot;rolInicial&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;cliente&quot;,&quot;ejecutivo&quot;],&quot;default&quot;:&quot;cliente&quot;,&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;Prototipo&quot;}}">
+class Component extends DCLogic {
+  state = {
+    session:null, catalogoId:null, tab:"paginas", paginaId:null, version:null,
+    filtroEstado:"todos", filtroTipo:"todos", busqueda:"", logFiltro:"todas",
+    drawMode:false, zoom:100, fullscreen:false, draft:null, tempBox:null,
+    wizard:null, wizardStep:"detalles", modal:null, toast:null,
+    loginEmail:"", loginPass:"", loginHint:"", quickRole:null, replyOpen:null, replyText:"", tick:0
+  };
+
+  constructor(props){
+    super(props);
+    this.HOY = "2026-09-11";   /* fecha de carga del catálogo, solo para los datos semilla */
+    this.MES = ["ene","feb","mar","abr","may","jun","jul","ago","sep","oct","nov","dic"];
+    this.CLIENTES = ["Valeria Ortiz","Tomás Rincón"];
+    this.EJECUTIVO = "Daniela Pardo";
+    /* Sectores comerciales: una página puede cargar varios (la 08 es bazar + textil + electro) */
+    this.CAT_LABEL = {food:"Food", liquidos:"Líquidos", dph:"DPH", bazar:"Bazar", textil:"Textil", electro:"Electro"};
+    this.CAT_ABBR  = {food:"FOOD", liquidos:"LIQ", dph:"DPH", bazar:"BAZ", textil:"TEX", electro:"ELE"};
+    this.CAT_ORDER = ["food","liquidos","dph","bazar","textil","electro"];
+    this.TYPE_LABEL = {precio:"Precio", descripcion:"Descripción", imagen:"Imagen", diseno:"Ajustes de diseño", otro:"Otro"};
+    this.TYPE_ORDER = ["precio","descripcion","imagen","diseno","otro"];
+    this.TYPE_CORTO = {precio:"precio", descripcion:"descripción", imagen:"imagen", diseno:"diseño", otro:"otro"};
+
+    /* ── Roles y cadena de revisión ──────────────────────────────────────
+       La aprobación SUBE:   Ogilvy carga → Marketing → Planificación → Comercial
+       El ajuste BAJA:       nace en cualquier nivel y desciende hasta Ogilvy    */
+    this.ROLES = {
+      agencia:      {label:"Agencia · Ogilvy", corto:"Ogilvy",        color:"#101014"},
+      marketing:    {label:"Marketing",        corto:"Marketing",     color:"#EF3B3A"},
+      planificacion:{label:"Planificación",    corto:"Planificación", color:"#6B6B76"},
+      comercial:    {label:"Sector / Comercial", corto:"Comercial",   color:"#4A4A55"}
+    };
+    this.CADENA = ["marketing","planificacion","comercial"];
+
+    /* Tiempos sugeridos, en minutos laborales. Editables en Tiempos de ajuste. */
+    this.SLA = {precio:30, descripcion:45, imagen:120, diseno:240, otro:60};  /* ejecución en Ogilvy, por tipo */
+    this.SLA_VALID = 120;                                                     /* validar un ajuste al bajar por la cadena */
+    this.SLA_APROB = {marketing:240, planificacion:240, comercial:480};        /* aprobar una página, por rol */
+
+    /* Horario laboral: fuera de él nadie comenta ni aprueba y los relojes se pausan */
+    this.HORARIO = {dias:[1,2,3,4,5], desde:8.5, hasta:18};
+    this.forzarFuera = false;
+
+    this.USUARIOS = {
+      agencia:       {email:"daniela.pardo@ogilvy.example",  nombre:"Daniela Pardo", org:"Ogilvy Colombia",        rol:"agencia",       categorias:null},
+      marketing:     {email:"valeria.ortiz@cencosud.example",nombre:"Valeria Ortiz", org:"Cencosud · Marketing",   rol:"marketing",     categorias:null},
+      planificacion: {email:"tomas.rincon@cencosud.example",  nombre:"Tomás Rincón",   org:"Cencosud · Planificación",rol:"planificacion",categorias:null},
+      comFood:    {email:"hernan.castro@cencosud.example",     nombre:"Hernán Castro",     org:"Cencosud · Comercial", rol:"comercial", categorias:["food"]},
+      comLiquidos:{email:"lucia.mora@cencosud.example",     nombre:"Lucía Mora",     org:"Cencosud · Comercial", rol:"comercial", categorias:["liquidos"]},
+      comDph:     {email:"felipe.arango@cencosud.example",  nombre:"Felipe Arango",  org:"Cencosud · Comercial", rol:"comercial", categorias:["dph"]},
+      /* Único caso multi-sector del demo: lo normal es un comercial por sector */
+      comBazar:   {email:"monica.lara@cencosud.example",    nombre:"Mónica Lara",    org:"Cencosud · Comercial", rol:"comercial", categorias:["bazar","textil","electro"]},
+      comTextil:  {email:"gabriela.soto@cencosud.example",   nombre:"Gabriela Soto",   org:"Cencosud · Comercial", rol:"comercial", categorias:["textil"]},
+      comElectro: {email:"esteban.duque@cencosud.example",  nombre:"Esteban Duque",  org:"Cencosud · Comercial", rol:"comercial", categorias:["electro"]}
+    };
+    /* Reloj virtual: el prototipo no espera en tiempo real. `reloj` acumula
+       milisegundos simulados y `velocidad` los multiplica (×1, ×10, ×60), para
+       que en una demo el cronómetro se vea correr y vencer de verdad. */
+    this.inicio = Date.now();
+    this.reloj = 0;
+    this.velocidad = 1;
+    /* Si el prototipo se abre de noche o en fin de semana arranca en la próxima
+       apertura, para que la demo no aparezca congelada. El estado fuera de
+       horario se prueba con el interruptor de Tiempos de ajuste. */
+    if(!this.enHorario(this.inicio)) this.inicio = this.proximaApertura(this.inicio).getTime();
+
+    this.eventos = [];
+    this.leido = {};
+    this.catalogos = this.buildData();
+    this.sembrarEventos();
+    this._fileRef = React.createRef();
+    this._versionFileRef = React.createRef();
+  }
+
+  /* ---------- data ---------- */
+  buildData(){
+    const B = (x,y,w,h)=>({x,y,w,h});
+    /* Categorías reales de la octavilla: 5 de food, líquidos, DPH y el pliego de no-alimentos */
+    const CATS = [["food"],["food"],["food"],["food"],["food"],["liquidos","dph"],["dph"],["bazar","textil","electro"]];
+
+    const pagina = (slug, n, extra)=>Object.assign({
+      id: slug+"-p"+n, numero:n, categorias:CATS[n-1], img: slug+"-p"+n,
+      versiones:[{n:1, fecha:"2026-09-11"}], comentarios:[]
+    }, extra||{});
+
+    const jumbo = {
+      id:"jumbo-octavilla-18-20-sep", tipo:"real",
+      nombre:"Jumbo · Octavilla 18–20 Sep 2026", cliente:"Cencosud (Jumbo)", cargaInicial:"2026-09-11",
+      paginas:[
+        pagina("jumbo",1, {esperaHaceMin:95, comentarios:[
+          {box:B(.07,.30,.40,.10), tipo:"precio", texto:"El precio del lomo de res premium no coincide con la lista maestra: debe quedar en $28.900 el kilo.", autor:"Hernán Castro", origenRol:"comercial", fecha:"2026-09-12", version:1, resueltoEn:null}
+        ]}),
+        pagina("jumbo",2, {
+          versiones:[{n:1,fecha:"2026-09-11"},{n:2,fecha:"2026-09-12",imgSrc:"assets/jumbo-p2-v2.jpg"}],
+          comentarios:[
+            {box:B(.08,.17,.40,.12), tipo:"imagen", texto:"La foto del queso campesino es la del catálogo anterior — reemplazar por la verificada.", autor:"Valeria Ortiz", origenRol:"marketing", fecha:"2026-09-11", version:1, resueltoEn:2},
+            {box:B(.52,.44,.40,.11), tipo:"descripcion", texto:"Falta el gramaje en la presentación de yogurt griego.", autor:"Tomás Rincón", origenRol:"planificacion", fecha:"2026-09-11", version:1, resueltoEn:2}
+          ]}),
+        pagina("jumbo",3, {comentarios:[
+          {box:B(.07,.55,.38,.12), tipo:"imagen", texto:"La imagen del pan tajado salió con el empaque viejo. Cambiarla por la del banco verificado.", autor:"Valeria Ortiz", origenRol:"marketing", fecha:"2026-09-12", version:1, resueltoEn:null, recibidoHaceMin:155}
+        ]}),
+        pagina("jumbo",4, {comentarios:[
+          {box:B(.55,.68,.38,.10), tipo:"precio", texto:"El descuento de la cerveza debe ser 30%, no 25% — así quedó en la negociación.", autor:"Valeria Ortiz", origenRol:"marketing", fecha:"2026-09-12", version:1, resueltoEn:null, recibidoHaceMin:22},
+          {box:B(.07,.40,.36,.13), tipo:"otro", texto:"Verificar que el combo de snacks no repita referencia con la octavilla del 11 al 13.", autor:"Tomás Rincón", origenRol:"planificacion", fecha:"2026-09-12", version:1, resueltoEn:null}
+        ]}),
+        pagina("jumbo",5, {esperaHaceMin:255}),
+        pagina("jumbo",6, {comentarios:[
+          {box:B(.08,.22,.42,.14), tipo:"diseno", texto:"El bloque de líquidos compite con el titular: bajar el peso del precio y dar aire entre la foto y el copy.", autor:"Mónica Lara", origenRol:"marketing", fecha:"2026-09-12", version:1, resueltoEn:null, recibidoHaceMin:70}
+        ]}),
+        pagina("jumbo",7, {
+          aprobaciones:[{fecha:"2026-09-12", por:"Valeria Ortiz", rol:"marketing", version:1}]}),
+        pagina("jumbo",8, {esperaHaceMin:30,
+          aprobaciones:[{fecha:"2026-09-12", por:"Valeria Ortiz", rol:"marketing", version:1},
+                        {fecha:"2026-09-12", por:"Tomás Rincón", rol:"planificacion", version:1},
+                        {fecha:"2026-09-12", por:"Isabel Moreno", rol:"comercial", version:1}]})
+      ]
+    };
+
+    const metro = {
+      id:"metro-octavilla-18-20-sep", tipo:"real",
+      nombre:"Metro · Octavilla 18–20 Sep 2026", cliente:"Cencosud (Metro)", cargaInicial:"2026-09-11",
+      paginas:[
+        pagina("metro",1, {esperaHaceMin:40}),
+        pagina("metro",2, {comentarios:[
+          {box:B(.10,.26,.36,.11), tipo:"precio", texto:"El arroz debe quedar en $5.290, no $5.790.", autor:"Hernán Castro", origenRol:"comercial", fecha:"2026-09-12", version:1, resueltoEn:null}
+        ]}),
+        pagina("metro",3, {comentarios:[
+          {box:B(.09,.47,.38,.12), tipo:"imagen", texto:"La foto de las galletas quedó pixelada al ampliarla; usar la del banco verificado.", autor:"Valeria Ortiz", origenRol:"marketing", fecha:"2026-09-12", version:1, resueltoEn:null, recibidoHaceMin:35}
+        ]}),
+        pagina("metro",4, {esperaHaceMin:120}),
+        pagina("metro",5, {comentarios:[
+          {box:B(.55,.33,.38,.10), tipo:"precio", texto:"Corregir el precio del atún: la promo pactada es $4.990 la lata.", autor:"Tomás Rincón", origenRol:"marketing", fecha:"2026-09-12", version:1, resueltoEn:null, recibidoHaceMin:26}
+        ]}),
+        pagina("metro",6, {
+          versiones:[{n:1,fecha:"2026-09-11"},{n:2,fecha:"2026-09-12",imgSrc:"assets/metro-p6-v2.jpg"}],
+          comentarios:[
+            {box:B(.09,.30,.40,.12), tipo:"imagen", texto:"El aceite aparece con la presentación de 3L y la promo es de 1L.", autor:"Valeria Ortiz", origenRol:"marketing", fecha:"2026-09-11", version:1, resueltoEn:2}
+          ]}),
+        pagina("metro",7, {comentarios:[
+          {box:B(.52,.20,.40,.12), tipo:"descripcion", texto:"Aclarar que el 2x1 de shampoo aplica solo sobre la línea familiar.", autor:"Tomás Rincón", origenRol:"planificacion", fecha:"2026-09-12", version:1, resueltoEn:null}
+        ]}),
+        pagina("metro",8, {comentarios:[
+          {box:B(.07,.62,.44,.13), tipo:"otro", texto:"El televisor de 55\" ya salió como destacado la semana pasada — confirmar antes de imprimir.", autor:"Mónica Lara", origenRol:"comercial", fecha:"2026-09-12", version:1, resueltoEn:null}
+        ]})
+      ]
+    };
+
+    const cats = [jumbo, metro];
+    cats.forEach(c=>c.paginas.forEach(p=>this.finalize(p)));
+    return cats;
+  }
+
+  finalize(pg){
+    pg.versionActual = Math.max.apply(null, pg.versiones.map(v=>v.n));
+    pg.comentarios.forEach((c,i)=>{
+      if(!c.id) c.id = pg.id+"-c"+i;
+      c.estado = c.resueltoEn ? "resuelto" : "abierto";
+      if(!c.box) c.box = this.slotRect(pg, c.slot);
+      if(!c.respuestas) c.respuestas = [];
+      if(!c.origenRol) c.origenRol = "marketing";
+      if(!c.validaciones) c.validaciones = [];
+      if(!c.ruta) c.ruta = this.rutaAjuste(c.origenRol);
+      if(c.defecto===undefined) c.defecto = false;
+      /* Desde cuándo el ajuste está parado en el eslabón donde está hoy */
+      if(c.etapaDesde===undefined) c.etapaDesde = this.ahora()-(c.recibidoHaceMin||0)*60000;
+      if(c.creado===undefined) c.creado = c.etapaDesde;
+      if(c.recibidoAgencia===undefined) c.recibidoAgencia = c.ruta[0]==="agencia" ? c.etapaDesde : null;
+    });
+    pg.aprobaciones = pg.aprobaciones || [];
+    pg.defectos = pg.defectos || [];
+    /* Desde cuándo la página espera el visto bueno del eslabón que le toca */
+    if(pg.esperaDesde===undefined) pg.esperaDesde = this.ahora()-(pg.esperaHaceMin||0)*60000;
+    this.syncAprobacion(pg);
+  }
+
+  /* ---------- máquina de estados: aprobación y ajustes ---------- */
+
+  /* Ruta descendente de un ajuste hasta Ogilvy.
+     comercial → planificación → marketing → agencia | planificación → marketing → agencia */
+  rutaAjuste(origen){
+    const i = this.CADENA.indexOf(origen);
+    if(i<=0) return ["agencia"];
+    return this.CADENA.slice(0,i).reverse().concat(["agencia"]);
+  }
+
+  /* Rol al que le toca aprobar la versión actual. null = aprobada por toda la cadena. */
+  etapaAprob(pg){
+    const hechas = pg.aprobaciones.filter(a=>a.version===pg.versionActual);
+    for(let i=0;i<this.CADENA.length;i++){
+      if(!hechas.some(a=>a.rol===this.CADENA[i])) return this.CADENA[i];
+    }
+    return null;
+  }
+  syncAprobacion(pg){
+    const etapa = this.etapaAprob(pg);
+    pg.aprobada = etapa===null;
+    if(pg.aprobada){
+      const ultima = pg.aprobaciones.filter(a=>a.version===pg.versionActual).slice(-1)[0];
+      pg.aprobadaPor = ultima ? ultima.por : null;
+      pg.aprobadaVersion = pg.versionActual;
+    } else { pg.aprobadaPor = null; pg.aprobadaVersion = null; }
+  }
+  etapaAjuste(c){ return c.estado==="resuelto" ? null : c.ruta[0]; }
+  /* Quién tiene la página ahora mismo: si hay ajustes abiertos, manda el ajuste;
+     si no, manda el eslabón de la cadena que debe dar el visto bueno. */
+  ubicacion(pg){
+    const abiertos = pg.comentarios.filter(c=>c.estado==="abierto");
+    if(abiertos.length){
+      const roles = [];
+      abiertos.forEach(c=>{ const r=this.etapaAjuste(c); if(roles.indexOf(r)<0) roles.push(r); });
+      if(roles.length>1) return {rol:null, label:"En varios equipos", trabajo:true};
+      const r = roles[0];
+      return {rol:r, trabajo:true, label:"En "+(r==="agencia" ? "Ogilvy" : this.ROLES[r].corto)};
+    }
+    const etapa = this.etapaAprob(pg);
+    if(!etapa) return {rol:null, trabajo:false, label:"Aprobada"};
+    return {rol:etapa, trabajo:false, label:"Esperando "+this.ROLES[etapa].corto};
+  }
+
+  rol(){ return this.state.session ? this.state.session.rol : null; }
+  esAgencia(){ return this.rol()==="agencia"; }
+  /* #7 — un usuario ve todo el proyecto pero solo actúa sobre su categoría asignada */
+  cats(pg){ return pg.categorias || [pg.categoria]; }
+  catsLabel(pg){ return this.cats(pg).map(c=>this.CAT_LABEL[c]).join(" · "); }
+  catPrincipal(pg){ return this.cats(pg)[0]; }
+  tieneCategoria(pg){
+    const s = this.state.session;
+    if(!s || !s.categorias) return true;
+    return this.cats(pg).some(c=>s.categorias.indexOf(c)>=0);
+  }
+  /* Bandeja: qué espera por el rol de la sesión */
+  bandeja(){
+    let aprobaciones = 0, ajustes = 0;
+    this.catalogos.forEach(cat=>cat.paginas.forEach(pg=>{
+      if(!this.tieneCategoria(pg)) return;
+      if(this.etapaAprob(pg)===this.rol() && !pg.comentarios.some(c=>c.estado==="abierto")) aprobaciones++;
+      pg.comentarios.forEach(c=>{ if(this.etapaAjuste(c)===this.rol()) ajustes++; });
+    }));
+    return {aprobaciones, ajustes, total:aprobaciones+ajustes};
+  }
+
+  /* ---------- reloj, horario y cronómetros (#1) ----------
+     Todo el tiempo de la plataforma se mide en MINUTOS LABORALES: fuera del
+     horario de trabajo los cronómetros se congelan y nadie puede comentar ni
+     aprobar, porque nadie del otro lado está trabajando. Cada página tiene un
+     reloj y ese reloj es de quien tenga la pelota en ese momento:
+       · ajuste en un eslabón del cliente  → SLA de validación
+       · ajuste en Ogilvy                  → SLA de ejecución según el tipo
+       · página sin ajustes, esperando OK  → SLA de aprobación de ese rol       */
+
+  ahora(){ return this.inicio + this.reloj; }
+  /* La fecha de cualquier cosa que pase ahora sale del reloj, no de una constante */
+  hoy(){
+    const d = new Date(this.ahora());
+    return d.getFullYear()+"-"+String(d.getMonth()+1).padStart(2,"0")+"-"+String(d.getDate()).padStart(2,"0");
+  }
+
+  /* ── horario laboral ── */
+  enHorario(ts){
+    if(this.forzarFuera) return false;
+    const d = new Date(ts===undefined ? this.ahora() : ts);
+    if(this.HORARIO.dias.indexOf(d.getDay())<0) return false;
+    const h = d.getHours() + d.getMinutes()/60;
+    return h >= this.HORARIO.desde && h < this.HORARIO.hasta;
+  }
+  horaDe(frac){
+    const h = Math.floor(frac), m = Math.round((frac-h)*60);
+    return String(h).padStart(2,"0")+":"+String(m).padStart(2,"0");
+  }
+  /* Próximo instante hábil a partir de ts */
+  proximaApertura(ts){
+    const d = new Date(ts);
+    for(let i=0;i<14;i++){
+      const abre = new Date(d);
+      abre.setHours(Math.floor(this.HORARIO.desde), Math.round((this.HORARIO.desde%1)*60), 0, 0);
+      if(this.HORARIO.dias.indexOf(d.getDay())>=0 && ts < abre.getTime()) return abre;
+      d.setDate(d.getDate()+1); d.setHours(0,0,0,0);
+      ts = Math.min(ts, d.getTime());
+    }
+    return new Date(ts);
+  }
+  horarioLabel(){
+    const ahora = new Date(this.ahora());
+    const dias = ["dom","lun","mar","mié","jue","vie","sáb"];
+    const reloj = dias[ahora.getDay()]+" "+ahora.getDate()+" "+this.MES[ahora.getMonth()]+" · "
+      + String(ahora.getHours()).padStart(2,"0")+":"+String(ahora.getMinutes()).padStart(2,"0");
+    if(this.enHorario()) return {abierto:true, texto:reloj+" · dentro de horario"};
+    const ap = this.proximaApertura(this.ahora());
+    return {abierto:false, texto:reloj+" · fuera de horario laboral ("
+      + this.horaDe(this.HORARIO.desde)+"–"+this.horaDe(this.HORARIO.hasta)
+      + ", L–V). Los cronómetros están en pausa y se reanudan el "
+      + dias[ap.getDay()]+" a las "+this.horaDe(this.HORARIO.desde)+"."};
+  }
+  /* Minutos laborales transcurridos entre dos instantes */
+  minutosLab(a, b){
+    if(!a || b<=a) return 0;
+    let total = 0, d = new Date(a), guarda = 0;
+    while(d.getTime() < b && guarda++ < 400){
+      if(this.HORARIO.dias.indexOf(d.getDay())>=0){
+        const ini = new Date(d); ini.setHours(Math.floor(this.HORARIO.desde), Math.round((this.HORARIO.desde%1)*60), 0, 0);
+        const fin = new Date(d); fin.setHours(Math.floor(this.HORARIO.hasta), Math.round((this.HORARIO.hasta%1)*60), 0, 0);
+        const s = Math.max(a, ini.getTime()), e = Math.min(b, fin.getTime());
+        if(e > s) total += (e-s)/60000;
+      }
+      d.setDate(d.getDate()+1); d.setHours(0,0,0,0);
+    }
+    return total;
+  }
+
+  /* ── formato ── */
+  fmtDur(min){
+    const neg = min<0, m = Math.round(Math.abs(min));
+    const h = Math.floor(m/60), r = m%60;
+    return (neg?"-":"") + (h>0 ? h+"h "+String(r).padStart(2,"0")+"m" : r+"m");
+  }
+  fmtReloj(min){
+    const neg = min<0;
+    let s = Math.floor(Math.abs(min)*60);
+    const h = Math.floor(s/3600), m = Math.floor((s%3600)/60);
+    s = s%60;
+    return (neg?"+":"") + [h,m,s].map(x=>String(x).padStart(2,"0")).join(":");
+  }
+  pista(estado, tam){
+    return "bar" + (tam ? " "+tam : "")
+      + (estado==="vencido" ? " soft red" : estado==="urgente" ? " red" : estado==="espera" ? " wait" : " ok");
+  }
+  ancho(pct){ return "width:"+Math.max(1.5, Math.min(100, pct*100)).toFixed(1)+"%;"; }
+  tono(restante, sla){
+    if(restante===null) return "espera";
+    if(restante < 0) return "vencido";
+    return restante < sla*0.25 ? "urgente" : "corriendo";
+  }
+
+  /* ── cronómetro de un ajuste: depende de dónde esté parado ── */
+  slaMin(c){ return this.SLA[c.tipo] || this.SLA.otro; }
+  slaAjuste(c){ return this.etapaAjuste(c)==="agencia" ? this.slaMin(c) : this.SLA_VALID; }
+  restanteMin(c){
+    if(c.estado==="resuelto" || !c.etapaDesde) return null;
+    return this.slaAjuste(c) - this.minutosLab(c.etapaDesde, this.ahora());
+  }
+  consumidoMin(c){
+    if(!c.etapaDesde) return 0;
+    return this.minutosLab(c.etapaDesde, this.ahora());
+  }
+  estadoAjuste(c){ return this.tono(this.restanteMin(c), this.slaAjuste(c)); }
+  dondeAjuste(c){
+    const e = this.etapaAjuste(c);
+    if(!e) return "Resuelto";
+    return e==="agencia" ? "Ogilvy ejecuta" : this.ROLES[e].corto+" valida";
+  }
+
+  /* ── cronómetro de aprobación del cliente (#nuevo) ── */
+  slaAprob(pg){ const e = this.etapaAprob(pg); return e ? this.SLA_APROB[e] : null; }
+  hayAjustes(pg){ return pg.comentarios.some(c=>c.estado==="abierto"); }
+  yaAprobo(pg){
+    const rol = this.rol();
+    return pg.aprobaciones.some(a=>a.version===pg.versionActual && a.rol===rol);
+  }
+  /* Con ajustes en curso la cadena queda suspendida: no corre reloj de aprobación
+     ni se puede aprobar, porque la página todavía va a cambiar. */
+  aprobSuspendida(pg){ return this.hayAjustes(pg); }
+  restanteAprob(pg){
+    const e = this.etapaAprob(pg);
+    if(!e || !pg.esperaDesde || this.aprobSuspendida(pg)) return null;
+    return this.SLA_APROB[e] - this.minutosLab(pg.esperaDesde, this.ahora());
+  }
+  aprobVencida(pg){ const r = this.restanteAprob(pg); return r!==null && r<0; }
+
+  /* ── cronómetro de la página: el de quien tenga la pelota ── */
+  cronoPagina(pg){
+    const abiertos = pg.comentarios.filter(c=>c.estado==="abierto");
+    if(abiertos.length){
+      const total = abiertos.reduce((t,c)=>t+this.slaAjuste(c), 0);
+      const consumido = abiertos.reduce((t,c)=>t+this.consumidoMin(c), 0);
+      const restante = total-consumido;
+      const vencidos = abiertos.filter(c=>{ const r=this.restanteMin(c); return r!==null && r<0; }).length;
+      const estado = vencidos>0 ? "vencido" : this.tono(restante, total);
+      const donde = abiertos.length===1 ? this.dondeAjuste(abiertos[0])
+        : abiertos.filter(c=>this.etapaAjuste(c)==="agencia").length+" en Ogilvy · "
+          + abiertos.filter(c=>this.etapaAjuste(c)!=="agencia").length+" en el cliente";
+      return {
+        tipo:"ajuste", estado:estado, ajustes:abiertos.length, vencidos:vencidos, donde:donde,
+        total:total, consumido:consumido, restante:restante,
+        pct: total>0 ? consumido/total : 0,
+        reloj: this.fmtReloj(restante),
+        label: vencidos>0 ? (vencidos+" vencido"+(vencidos>1?"s":"")) : this.fmtReloj(restante)
+      };
+    }
+    /* Sin ajustes abiertos: corre el reloj de aprobación del cliente */
+    const etapa = this.etapaAprob(pg);
+    if(!etapa) return null;
+    const sla = this.SLA_APROB[etapa], restante = this.restanteAprob(pg);
+    if(restante===null) return null;
+    const estado = this.tono(restante, sla);
+    return {
+      tipo:"aprobacion", estado:estado, ajustes:0, vencidos: restante<0 ? 1 : 0,
+      donde: this.ROLES[etapa].corto+" debe aprobar",
+      total:sla, consumido: Math.min(sla, sla-restante), restante:restante,
+      pct: Math.min(1, (sla-restante)/sla),
+      reloj: this.fmtReloj(restante),
+      label: this.fmtReloj(restante)
+    };
+  }
+
+  /* ---------- helpers ---------- */
+  fmtDate(iso){ const p = iso.split("-").map(Number); return p[2]+" "+this.MES[p[1]-1]+" "+p[0]; }
+  fmtMoney(n){ return "$"+n.toLocaleString("es-CO"); }
+  initials(n){ return n.trim().split(/\s+/).map(w=>w[0]).slice(0,2).join("").toUpperCase(); }
+  gridRects(n){
+    const cols=2, gapX=.045, gapY=.05, x0=.055, x1=.945, y0=.175, y1=.94;
+    const rows = Math.ceil(n/cols);
+    const cw = (x1-x0-gapX*(cols-1))/cols, rh = (y1-y0-gapY*(rows-1))/rows;
+    const out=[];
+    for(let i=0;i<n;i++){ const r=Math.floor(i/cols), c=i%cols; out.push({x:x0+c*(cw+gapX), y:y0+r*(rh+gapY), w:cw, h:rh}); }
+    return out;
+  }
+  slotRect(pg, slot){
+    if(slot==="header") return {x:.055,y:.03,w:.89,h:.115};
+    if(pg.productos) return this.gridRects(pg.productos.length)[slot];
+    return {x:.1,y:.1,w:.2,h:.1};
+  }
+  cat(){ return this.catalogos.find(c=>c.id===this.state.catalogoId); }
+  pag(){ const c=this.cat(); return c ? c.paginas.find(p=>p.id===this.state.paginaId) : null; }
+  totales(cat){
+    let total=0, abiertos=0, aprobadas=0, defectos=0, vencidos=0, aprobVencidas=0;
+    cat.paginas.forEach(p=>{
+      total+=p.comentarios.length;
+      abiertos+=p.comentarios.filter(c=>c.estado==="abierto").length;
+      defectos+=p.defectos.length;
+      vencidos+=p.comentarios.filter(c=>{ const r=this.restanteMin(c); return r!==null && r<0; }).length;
+      if(p.aprobada) aprobadas++;
+      if(this.aprobVencida(p)) aprobVencidas++;
+    });
+    return {total, abiertos, aprobadas, defectos, vencidos, aprobVencidas};
+  }
+  pageSrc(cat, pg){ const v = pg.versiones.find(x=>x.n===this.state.version); return (v&&v.imgSrc) ? this.asset(v.imgSrc) : this.srcPagina(pg); }
+  thumbSrc(cat, pg){ const v = pg.versiones[pg.versiones.length-1]; return (v&&v.imgSrc) ? this.asset(v.imgSrc) : this.srcPagina(pg); }
+  bump(){ this.setState(s=>({tick:s.tick+1})); }
+  toast(msg){ this.setState({toast:msg}); clearTimeout(this._tt); this._tt = setTimeout(()=>this.setState({toast:null}), 2600); }
+
+  /* Avisos de arranque, para que la bandeja no aparezca vacía en la demo */
+  sembrarEventos(){
+    this.catalogos.forEach(cat=>{
+      this.eventos.push({ts:this.ahora()-9e5, tipo:"carga", catId:cat.id, pagId:cat.paginas[0].id,
+        para:["marketing"], autor:this.EJECUTIVO,
+        texto:"Ogilvy cargó "+cat.paginas.length+" páginas de "+cat.nombre+" · la revisión empieza en Marketing"});
+      cat.paginas.forEach(pg=>{
+        pg.comentarios.filter(c=>c.estado==="abierto").forEach(c=>{
+          this.eventos.push({ts:c.etapaDesde, tipo:"ajuste", catId:cat.id, pagId:pg.id,
+            para:[this.etapaAjuste(c)], autor:c.autor,
+            texto:"Ajuste de "+this.TYPE_CORTO[c.tipo]+" en la página "
+              +String(pg.numero).padStart(2,"0")+" de "+cat.nombre});
+        });
+      });
+    });
+    this.eventos.sort((a,b)=>b.ts-a.ts);
+  }
+
+  /* ---------- notificaciones ----------
+     Cada cambio de estado deja un aviso dirigido al rol que tiene que actuar.  */
+  notificar(tipo, cat, pg, para, texto){
+    this.eventos.unshift({
+      ts: this.ahora(), tipo: tipo,
+      catId: cat ? cat.id : null, pagId: pg ? pg.id : null,
+      para: para, texto: texto,
+      autor: this.state.session ? this.state.session.nombre : "Sistema"
+    });
+    if(this.eventos.length > 80) this.eventos.pop();
+  }
+  sinLeer(){
+    const rol = this.rol();
+    if(!rol) return 0;
+    const desde = this.leido[rol] || 0;
+    return this.eventos.filter(e=>e.para.indexOf(rol)>=0 && e.ts > desde).length;
+  }
+  marcarLeidas(){ if(this.rol()) this.leido[this.rol()] = this.ahora(); }
+  /* Lo que espera por el rol de la sesión, con su reloj */
+  pendientesDe(){
+    const out = [];
+    this.catalogos.forEach(cat=>cat.paginas.forEach(pg=>{
+      if(!this.tieneCategoria(pg)) return;
+      pg.comentarios.forEach(c=>{
+        if(this.etapaAjuste(c)!==this.rol()) return;
+        const rest = this.restanteMin(c);
+        out.push({
+          cat: cat, pg: pg, orden: rest===null ? 1e9 : rest,
+          titulo: (this.rol()==="agencia" ? "Ejecutar ajuste de " : "Validar ajuste de ")+this.TYPE_CORTO[c.tipo],
+          detalle: cat.nombre+" · página "+String(pg.numero).padStart(2,"0"),
+          reloj: rest===null ? "" : this.fmtReloj(rest),
+          tono: this.estadoAjuste(c)
+        });
+      });
+      if(this.etapaAprob(pg)===this.rol() && !pg.comentarios.some(c=>c.estado==="abierto")){
+        const rest = this.restanteAprob(pg);
+        out.push({
+          cat: cat, pg: pg, orden: rest===null ? 1e9 : rest,
+          titulo: "Aprobar página",
+          detalle: cat.nombre+" · página "+String(pg.numero).padStart(2,"0")+" · "+this.catsLabel(pg),
+          reloj: rest===null ? "" : this.fmtReloj(rest),
+          tono: this.tono(rest, this.SLA_APROB[this.rol()])
+        });
+      }
+    }));
+    out.sort((a,b)=>a.orden-b.orden);
+    return out;
+  }
+
+  /* ---------- ajustes: alta y validación en cadena (#6) ---------- */
+  nuevoAjuste(pg, datos, opts){
+    opts = opts || {};
+    const rol = this.rol(), ruta = this.rutaAjuste(rol);
+    const c = {
+      id: pg.id+"-c"+pg.comentarios.length+"-"+Date.now(),
+      box: datos.box, tipo: datos.tipo, texto: datos.texto,
+      autor: this.state.session.nombre, origenRol: rol,
+      fecha: this.hoy(), version: pg.versionActual,
+      estado: "abierto", resueltoEn: null, respuestas: [], validaciones: [],
+      ruta: ruta.slice(), defecto: !!opts.defecto,
+      creado: this.ahora(), etapaDesde: this.ahora(),
+      recibidoAgencia: ruta[0]==="agencia" ? this.ahora() : null
+    };
+    pg.comentarios.push(c);
+    this.notificar("ajuste", this.cat(), pg, [c.ruta[0]],
+      (opts.defecto ? "Defecto post-producción" : "Ajuste")+" de "+this.TYPE_CORTO[c.tipo]
+      +" en la página "+String(pg.numero).padStart(2,"0"));
+    this.bump();
+    return c;
+  }
+  validarAjuste(pg, c, nota){
+    const rol = this.rol();
+    if(c.ruta[0]!==rol) return;
+    c.validaciones.push({ts:this.ahora(), rol:rol, por:this.state.session.nombre, fecha:this.hoy(), nota:(nota||"").trim()});
+    c.ruta = c.ruta.slice(1);
+    c.etapaDesde = this.ahora();
+    if(c.ruta[0]==="agencia") c.recibidoAgencia = this.ahora();
+    this.notificar("validacion", this.cat(), pg, [c.ruta[0]],
+      this.ROLES[rol].corto+" validó un ajuste de "+this.TYPE_CORTO[c.tipo]
+      +" en la página "+String(pg.numero).padStart(2,"0"));
+    this.bump();
+    this.toast(c.ruta[0]==="agencia"
+      ? "Ajuste validado y enviado a Ogilvy · cronómetro en marcha"
+      : "Ajuste enviado a "+this.ROLES[c.ruta[0]].corto);
+  }
+
+  /* ---------- comparación de versiones (#4) ---------- */
+  /* En el HTML empaquetado los assets viajan como data: URI dentro de window.__ASSETS */
+  asset(ruta){
+    if(!ruta) return ruta;
+    const m = (typeof window!=="undefined" && window.__ASSETS) || null;
+    return (m && m[ruta]) || ruta;
+  }
+  srcPagina(pg){ return this.asset(pg.imgSrc || (pg.img ? "assets/"+pg.img+".jpg" : null)); }
+  srcVersion(pg, n){
+    const v = pg.versiones.find(x=>x.n===n);
+    return (v && v.imgSrc) ? this.asset(v.imgSrc) : this.srcPagina(pg);
+  }
+  /* La comparación vive dentro del lienzo, no en una ventana aparte */
+  abrirComparacion(pg, ver, contra){
+    const b = ver>1 ? ver : pg.versionActual;
+    const a = contra || Math.max(1, b-1);
+    this.setState({comparar:{a:a, b:b, modo:(this.state.comparar||{}).modo || "lado", x:0.5},
+      diff:null, diffEstado:"calculando", drawMode:false, draft:null, tempBox:null});
+    this.detectarCambios(this.srcVersion(pg,a), this.srcVersion(pg,b),
+      (res)=>this.setState({diff:res.boxes, diffEstado:res.estado}));
+  }
+  /* Diferencia por píxeles sobre una malla, agrupada en regiones contiguas */
+  detectarCambios(srcA, srcB, cb){
+    if(!srcA || !srcB) return cb({estado:"sin-imagen", boxes:[]});
+    const W=180, H=350, CELL=6, UMBRAL=14;
+    const load = (src)=>new Promise((res,rej)=>{
+      const im = new Image(); im.crossOrigin="anonymous";
+      im.onload=()=>res(im); im.onerror=rej; im.src=src;
+    });
+    Promise.all([load(srcA), load(srcB)]).then((ims)=>{
+      const px = (im)=>{ const cv=document.createElement("canvas"); cv.width=W; cv.height=H;
+        const cx=cv.getContext("2d"); cx.drawImage(im,0,0,W,H); return cx.getImageData(0,0,W,H).data; };
+      const da=px(ims[0]), db=px(ims[1]);
+      const cols=Math.floor(W/CELL), rows=Math.floor(H/CELL), grid=new Array(cols*rows);
+      for(let r=0;r<rows;r++) for(let c=0;c<cols;c++){
+        let sum=0, n=0;
+        for(let y=r*CELL;y<(r+1)*CELL;y++) for(let x=c*CELL;x<(c+1)*CELL;x++){
+          const i=(y*W+x)*4;
+          sum += Math.abs(da[i]-db[i])+Math.abs(da[i+1]-db[i+1])+Math.abs(da[i+2]-db[i+2]); n+=3;
+        }
+        grid[r*cols+c] = (sum/n) > UMBRAL;
+      }
+      const boxes=[], seen=new Array(cols*rows).fill(false);
+      for(let r=0;r<rows;r++) for(let c=0;c<cols;c++){
+        const i=r*cols+c;
+        if(!grid[i] || seen[i]) continue;
+        let minR=r,maxR=r,minC=c,maxC=c,count=0; const stack=[i]; seen[i]=true;
+        while(stack.length){
+          const k=stack.pop(), kr=Math.floor(k/cols), kc=k%cols; count++;
+          if(kr<minR)minR=kr; if(kr>maxR)maxR=kr; if(kc<minC)minC=kc; if(kc>maxC)maxC=kc;
+          const vec=[[kr-1,kc],[kr+1,kc],[kr,kc-1],[kr,kc+1],[kr-1,kc-1],[kr-1,kc+1],[kr+1,kc-1],[kr+1,kc+1]];
+          for(let q=0;q<vec.length;q++){
+            const nr=vec[q][0], nc=vec[q][1];
+            if(nr<0||nc<0||nr>=rows||nc>=cols) continue;
+            const nk=nr*cols+nc;
+            if(grid[nk] && !seen[nk]){ seen[nk]=true; stack.push(nk); }
+          }
+        }
+        if(count<3) continue;
+        boxes.push({x:minC/cols, y:minR/rows, w:(maxC-minC+1)/cols, h:(maxR-minR+1)/rows, celdas:count});
+      }
+      boxes.sort((a,b)=>b.celdas-a.celdas);
+      cb({estado: boxes.length ? "cambios" : "iguales", boxes: boxes.slice(0,12)});
+    }).catch(()=>cb({estado:"error", boxes:[]}));
+  }
+
+  /* ---------- session ---------- */
+  quick(key){ const d=this.USUARIOS[key]; this.setState({quickRole:key, loginEmail:d.email, loginPass:"••••••••", loginHint:""}); }
+  login(){
+    const k = this.state.quickRole;
+    if(!k){ this.setState({loginHint:"Selecciona un acceso de prueba abajo."}); return; }
+    const d = this.USUARIOS[k];
+    this.setState({session:{clave:k, rol:d.rol, nombre:d.nombre, org:d.org, categorias:d.categorias}});
+  }
+  logout(){ this.setState({session:null, catalogoId:null, wizard:null, quickRole:null, loginEmail:"", loginPass:"", loginHint:""}); }
+
+  enter(id){
+    const cat = this.catalogos.find(c=>c.id===id);
+    this.setState({catalogoId:id, tab:"paginas", paginaId:cat.paginas[0].id, version:null, filtroEstado:"todos", filtroTipo:"todos", wizard:null, drawMode:false, zoom:100});
+  }
+
+  componentDidMount(){
+    this._key = (e)=>{
+      if(this.state.tab!=="pagina" || !this.state.catalogoId || this.state.modal) return;
+      if(e.key==="ArrowLeft") this.movePage(-1);
+      if(e.key==="ArrowRight") this.movePage(1);
+    };
+    window.addEventListener("keydown", this._key);
+    /* Los cronómetros corren en vivo mientras haya sesión abierta */
+    this._crono = setInterval(()=>{
+      /* El calendario sigue corriendo (para que llegue la próxima apertura); lo que
+         no acumula fuera de horario son los minutos de SLA, que cuenta minutosLab.
+         El interruptor de simulación sí congela todo, que es lo que se quiere ver. */
+      if(!this.forzarFuera) this.reloj += 250*this.velocidad;
+      if(this.state.session) this.bump();
+    }, 250);
+  }
+  componentWillUnmount(){ window.removeEventListener("keydown", this._key); clearTimeout(this._tt); clearInterval(this._crono); }
+
+  movePage(dir){
+    const cat = this.cat(); if(!cat) return;
+    const i = cat.paginas.findIndex(p=>p.id===this.state.paginaId);
+    const j = i+dir;
+    if(j<0 || j>=cat.paginas.length) return;
+    this.setState({paginaId:cat.paginas[j].id, version:null, drawMode:false, zoom:100, draft:null, tempBox:null});
+  }
+
+  renderVals(){
+    const s = this.state;
+    const v = {
+      loggedIn: !!s.session,
+      isLogin: !s.session,
+      isLista: !!s.session && !s.catalogoId && !s.wizard,
+      isWizard: !!s.wizard,
+      isCatalogo: !!s.session && !!s.catalogoId && !s.wizard,
+      esAgencia: !!s.session && s.session.rol==="agencia",
+      esCliente: !!s.session && s.session.rol!=="agencia",
+      sesionNombre: s.session ? s.session.nombre : "",
+      sesionIniciales: s.session ? this.initials(s.session.nombre) : "",
+      sesionRol: s.session ? (s.session.org) : "",
+      sesionCategorias: s.session && s.session.categorias ? ("Solo "+s.session.categorias.map(c=>this.CAT_LABEL[c]).join(" · ")) : "Todas las categorías",
+      loginEmail: s.loginEmail, loginPass: s.loginPass, loginHint: s.loginHint,
+      busqueda: s.busqueda,
+      onLoginEmail: (e)=>this.setState({loginEmail:e.target.value}),
+      onLoginPass: (e)=>this.setState({loginPass:e.target.value}),
+      onLoginSubmit: ()=>this.login(),
+      accesos: Object.keys(this.USUARIOS).map(k=>{
+        const u = this.USUARIOS[k], act = s.quickRole===k;
+        return {
+          label: this.ROLES[u.rol].corto,
+          nombre: u.nombre,
+          sectores: u.categorias ? u.categorias.map(c=>this.CAT_LABEL[c]).join(" · ") : "Todas las categorías",
+          clase: act ? "acceso on" : "acceso",
+          onClick: ()=>this.quick(k)
+        };
+      }),
+      onLogout: ()=>this.logout(),
+      onBuscar: (e)=>this.setState({busqueda:e.target.value}),
+      onNuevoCatalogo: ()=>this.setState({wizard:{nombre:"",cliente:"Cencosud (Jumbo)",paginas:[]}, wizardStep:"detalles"}),
+      toastMsg: s.toast, hayToast: !!s.toast
+    };
+
+    if(s.session){
+      let ab=0, apr=0, pgs=0;
+      this.catalogos.forEach(c=>{ const t=this.totales(c); ab+=t.abiertos; apr+=t.aprobadas; pgs+=c.paginas.length; });
+      const pctApr = pgs ? Math.round(apr/pgs*100) : 0;
+      const band = this.bandeja();
+      v.navPendientes = band.total;
+      v.navBadgeClase = "side-badge mono" + (band.total>0 ? " on" : "");
+      v.bandejaLabel = band.total===0 ? "Nada esperando por tu equipo"
+        : this.esAgencia() ? (band.ajustes+" ajuste(s) por ejecutar")
+        : (band.aprobaciones+" página(s) por aprobar · "+band.ajustes+" ajuste(s) por validar");
+      /* Centro de notificaciones */
+      const noLeidas = this.sinLeer();
+      v.notiPendientes = noLeidas;
+      v.hayNoLeidas = noLeidas>0;
+      v.navNotiClase = this.navClase(!!s.modal && s.modal.tipo==="notificaciones");
+      v.navNotiBadgeClase = "side-badge mono" + (noLeidas>0 ? " on" : "");
+      v.onNavNoti = ()=>{ this.marcarLeidas(); this.setState({modal:{tipo:"notificaciones"}}); };
+
+      v.navCatalogosClase = this.navClase(!s.wizard);
+      v.navNuevoClase = this.navClase(!!s.wizard);
+      v.navSlaClase = this.navClase(!!s.modal && s.modal.tipo==="sla");
+      v.onNavCatalogos = ()=>this.setState({catalogoId:null, wizard:null});
+      v.onNavSla = ()=>this.setState({modal:{tipo:"sla"}});
+      v.progresoClase = "";
+      v.progresoAncho = "width:"+Math.max(3,pctApr)+"%;background:#EF3B3A;";
+      v.progresoLabel = apr+" de "+pgs+" páginas aprobadas por toda la cadena";
+      const hor = this.horarioLabel();
+      v.horarioAbierto = hor.abierto;
+      v.fueraDeHorario = !hor.abierto;
+      v.horarioTexto = hor.texto;
+      v.horarioClase = "t-xs " + (hor.abierto ? "mut" : "red semi");
+    }
+
+    const q = s.busqueda.trim().toLowerCase();
+    const lista = this.catalogos.filter(c=> !q || (c.nombre+" "+c.cliente).toLowerCase().indexOf(q)>=0);
+    v.listaVacia = lista.length===0;
+    v.listaResumen = this.catalogos.length+" catálogos en proceso · rondas de revisión abiertas con Cencosud";
+    v.listaCatalogos = lista.map((cat,i)=>{
+      const t = this.totales(cat);
+      return {
+        id: cat.id,
+        numero: String(i+1).padStart(2,"0"),
+        nombre: cat.nombre, cliente: cat.cliente,
+        paginasLabel: cat.paginas.length+" páginas",
+        cargaLabel: this.fmtDate(cat.cargaInicial),
+        total: t.total, abiertos: t.abiertos,
+        aprobLabel: t.aprobadas+"/"+cat.paginas.length,
+        estadoTexto: t.abiertos>0 ? "En revisión" : (t.total>0 ? "Al día" : "Recién cargado"),
+        pillClase: t.abiertos>0 ? "badge badge-soft" : "badge badge-mut",
+        pendClase: t.abiertos>0 ? "t-xs mono semi red" : "t-xs mono semi mut",
+        progresoClase: "",
+        progresoAncho: "width:"+Math.max(3, Math.round(t.aprobadas/cat.paginas.length*100))+"%;"
+          + (t.aprobadas===cat.paginas.length ? "" : "background:var(--primary);"),
+        onEnter: ()=>this.enter(cat.id),
+        onShare: ()=>this.setState({modal:{tipo:"share", catId:cat.id}})
+      };
+    });
+    if(v.isCatalogo) this.catalogoVals(v);
+    if(v.isWizard) this.wizardVals(v);
+    this.modalVals(v);
+    return v;
+  }
+
+  wizardVals(v){
+    const s = this.state, w = s.wizard;
+    const pasos = [["detalles","Detalles"],["subir","Subir páginas"],["categorizar","Categorizar"]];
+    const iAct = pasos.findIndex(p=>p[0]===s.wizardStep);
+    v.wizardPasos = pasos.map((p,i)=>({
+      n:"0"+(i+1), label:p[1],
+      clase:"tab" + (i===iAct ? " on" : "")
+    }));
+    v.wPaso1 = s.wizardStep==="detalles";
+    v.wPaso2 = s.wizardStep==="subir";
+    v.wPaso3 = s.wizardStep==="categorizar";
+    v.wNombre = w.nombre; v.wCliente = w.cliente;
+    v.wCount = w.paginas.length+(w.paginas.length===1?" página cargada":" páginas cargadas");
+    v.wCatCount = w.paginas.filter(p=>p.categorias && p.categorias.length).length+"/"+w.paginas.length+" categorizadas";
+    v.fileRef = this._fileRef;
+    v.onWNombre = (e)=>{ w.nombre = e.target.value; this.bump(); };
+    v.onWCliente = (e)=>{ w.cliente = e.target.value; this.bump(); };
+    v.onWizardCancel = ()=>this.setState({wizard:null});
+    v.onWStep1 = ()=>this.setState({wizardStep:"detalles"});
+    v.onWStep2 = ()=>{ if(!w.nombre.trim()){ this.toast("Ponle nombre al catálogo"); return; } this.setState({wizardStep:"subir"}); };
+    v.onWStep3 = ()=>{ if(!w.paginas.length){ this.toast("Sube al menos una página"); return; } this.setState({wizardStep:"categorizar"}); };
+    v.onPickFiles = ()=>{ if(this._fileRef.current) this._fileRef.current.click(); };
+    v.onFilesChange = (e)=>{
+      const files = Array.from(e.target.files||[]);
+      let pending = files.length;
+      if(!pending) return;
+      files.forEach(f=>{
+        const rd = new FileReader();
+        rd.onload = ()=>{ w.paginas.push({fileName:f.name, dataUrl:rd.result, categorias:[]}); pending--; if(!pending) this.bump(); };
+        rd.readAsDataURL(f);
+      });
+    };
+    const abbr = this.CAT_ABBR;
+    v.wPaginas = w.paginas.map((p,i)=>({
+      artStyle:{aspectRatio:"359/700", background:"#FAFAFC", backgroundImage:"url('"+p.dataUrl+"')", backgroundSize:"cover", backgroundPosition:"center"},
+      label:"Pág. "+String(i+1).padStart(2,"0"),
+      resumen: (p.categorias && p.categorias.length)
+        ? p.categorias.map(c=>this.CAT_LABEL[c]).join(" · ")
+        : "Sin sector",
+      resumenClase: "t-xs " + ((p.categorias && p.categorias.length) ? "semi" : "mut"),
+      cats: this.CAT_ORDER.map(c=>({
+        abbr:abbr[c],
+        clase:"btn btn-xs" + ((p.categorias||[]).indexOf(c)>=0 ? " btn-dark" : " btn-ghost"),
+        onClick: ()=>{
+          if(!p.categorias) p.categorias = [];
+          const i = p.categorias.indexOf(c);
+          if(i>=0) p.categorias.splice(i,1); else p.categorias.push(c);
+          /* se guardan en el orden de la taxonomía, no en el del clic */
+          p.categorias.sort((a,b)=>this.CAT_ORDER.indexOf(a)-this.CAT_ORDER.indexOf(b));
+          this.bump();
+        }
+      }))
+    }));
+    v.onWPublicar = ()=>{
+      if(w.paginas.some(p=>!p.categorias || !p.categorias.length)){ this.toast("Toda página necesita al menos un sector"); return; }
+      const id = w.nombre.toLowerCase().normalize("NFD").replace(/[^a-z0-9]+/g,"-").replace(/(^-|-$)/g,"")+"-"+Date.now().toString(36);
+      const nuevo = {id:id, tipo:"real", nombre:w.nombre, cliente:w.cliente, cargaInicial:this.hoy(),
+        paginas: w.paginas.map((p,i)=>({id:id+"-p"+(i+1), numero:i+1, categorias:p.categorias.slice(), imgSrc:p.dataUrl,
+          versiones:[{n:1, fecha:this.hoy(), imgSrc:p.dataUrl}], comentarios:[]}))};
+      nuevo.paginas.forEach(p=>this.finalize(p));
+      this.catalogos.unshift(nuevo);
+      this.setState({wizard:null});
+      this.enter(id);
+      this.toast("Catálogo publicado");
+    };
+  }
+
+  modalVals(v){
+    const s = this.state, m = s.modal;
+    v.hayModal = !!m;
+    v.stopClick = (e)=>e.stopPropagation();
+    v.onCloseModal = ()=>this.setState({modal:null, versionImg:null, resolverSet:null, diff:null, diffEstado:null, defectoTexto:""});
+    if(!m) return;
+    v.modalShare = m.tipo==="share";
+    v.modalAprobar = m.tipo==="aprobar";
+    if(v.modalAprobar){
+      const cat = this.cat(), pg = cat.paginas.find(p=>p.id===m.pagId);
+      const pend = pg.comentarios.filter(c=>c.estado==="abierto").length;
+      const etapa = this.etapaAprob(pg);
+      const i = this.CADENA.indexOf(etapa), siguiente = this.CADENA[i+1];
+      v.modalTitulo = "Aprobar como "+this.ROLES[etapa].corto;
+      v.aprobarTexto = siguiente
+        ? "Al aprobar, la página queda bloqueada para tu equipo y le llega a "+this.ROLES[siguiente].label+" para su revisión."
+        : "Eres el último eslabón de la cadena. Al aprobar, la página queda cerrada y solo se reabre como Post Production Defect.";
+      v.aprobarPagina = "Página "+String(pg.numero).padStart(2,"0")+" · "+this.catsLabel(pg);
+      v.aprobarVersion = "v"+pg.versionActual;
+      v.aprobarSiguiente = siguiente ? this.ROLES[siguiente].label : "Cierra la ronda";
+      v.aprobarPendientes = pend;
+      v.aprobarPendClase = pend>0 ? "semi red" : "semi";
+      v.aprobarCta = siguiente ? ("Aprobar y enviar a "+this.ROLES[siguiente].corto) : "Aprobar y cerrar";
+      v.onConfirmAprobar = ()=>{
+        pg.aprobaciones.push({ts:this.ahora(), fecha:this.hoy(), por:s.session.nombre, rol:etapa, version:pg.versionActual,
+          demora: Math.max(0, -this.restanteAprob(pg))});
+        pg.esperaDesde = this.ahora();
+        this.syncAprobacion(pg);
+        this.notificar("aprobacion", cat, pg, siguiente ? [siguiente] : ["agencia","marketing"],
+          siguiente
+            ? (this.ROLES[etapa].corto+" aprobó la página "+String(pg.numero).padStart(2,"0")+" · ahora te toca a ti")
+            : ("Página "+String(pg.numero).padStart(2,"0")+" aprobada por toda la cadena"));
+        this.setState({modal:null});
+        this.toast(siguiente
+          ? "Página "+pg.numero+" aprobada · notificada a "+this.ROLES[siguiente].corto
+          : "Página "+pg.numero+" aprobada por toda la cadena");
+      };
+    }
+
+    /* #3 — defecto post-producción sobre una página ya aprobada */
+    v.modalDefecto = m.tipo==="defecto";
+    if(v.modalDefecto){
+      const cat = this.cat(), pg = cat.paginas.find(p=>p.id===m.pagId);
+      v.modalTitulo = "Reabrir por defecto post-producción";
+      v.defectoTexto = s.defectoTexto || "";
+      v.defectoTipo = s.defectoTipo || "imagen";
+      v.defectoInfo = (pg.aprobada
+          ? "La página "+String(pg.numero).padStart(2,"0")+" ya fue aprobada por toda la cadena. "
+          : "Ya diste tu visto bueno a la página "+String(pg.numero).padStart(2,"0")+". ")
+        + "Reabrirla anula las aprobaciones de la v"+pg.versionActual
+        + ", crea un ajuste marcado como defecto que va directo a Ogilvy y queda contado aparte en el reporte.";
+      v.onDefectoTexto = (e)=>this.setState({defectoTexto:e.target.value});
+      v.onDefectoTipo = (e)=>this.setState({defectoTipo:e.target.value});
+      v.onConfirmDefecto = ()=>{
+        const txt = (s.defectoTexto||"").trim();
+        if(!txt){ this.toast("Describe el defecto encontrado"); return; }
+        pg.defectos.push({ts:this.ahora(), fecha:this.hoy(), por:s.session.nombre, rol:this.rol(), motivo:txt, tipo:s.defectoTipo||"imagen", version:pg.versionActual});
+        pg.aprobaciones = pg.aprobaciones.filter(a=>a.version!==pg.versionActual);
+        pg.esperaDesde = this.ahora();
+        this.nuevoAjuste(pg, {box:{x:.08,y:.08,w:.30,h:.12}, tipo:s.defectoTipo||"imagen", texto:txt}, {defecto:true});
+        this.syncAprobacion(pg);
+        this.notificar("defecto", cat, pg, ["agencia"],
+          "Post Production Defect en la página "+String(pg.numero).padStart(2,"0")+" · página reabierta");
+        this.setState({modal:null, defectoTexto:"", defectoTipo:"imagen"});
+        this.toast("Página "+pg.numero+" reabierta como defecto post-producción");
+      };
+    }
+
+    /* Centro de notificaciones */
+    v.modalNoti = m.tipo==="notificaciones";
+    if(v.modalNoti){
+      v.modalTitulo = "Notificaciones";
+      const pend = this.pendientesDe();
+      v.notiTexto = pend.length
+        ? "Esto espera por "+(this.esAgencia() ? "Ogilvy" : this.ROLES[this.rol()].label)+" ahora mismo."
+        : "No hay nada esperando por tu equipo en este momento.";
+      v.notiAcciones = pend.map(p=>({
+        titulo: p.titulo,
+        detalle: p.detalle,
+        reloj: p.reloj,
+        relojClase: "t-xs mono semi" + (p.tono==="vencido"||p.tono==="urgente" ? " red" : p.tono==="espera" ? " mut" : ""),
+        onAbrir: ()=>{
+          this.setState({modal:null, catalogoId:p.cat.id, paginaId:p.pg.id, tab:"pagina",
+            version:null, comparar:null, drawMode:false, draft:null, filtroEstado:"todos", filtroTipo:"todos"});
+        }
+      }));
+      v.notiSinAcciones = pend.length===0;
+
+      const rol = this.rol();
+      const mios = this.eventos.filter(e=>e.para.indexOf(rol)>=0).slice(0,14);
+      v.notiEventos = mios.map(e=>{
+        const min = Math.max(0, Math.round((this.ahora()-e.ts)/60000));
+        return {
+          texto: e.texto,
+          meta: e.autor+" · hace "+(min<60 ? min+" min" : Math.round(min/60)+" h"),
+          dotClase: "log-dot" + (e.tipo==="defecto"||e.tipo==="ajuste" ? " red" : e.tipo==="aprobacion"||e.tipo==="version" ? " ink" : "")
+        };
+      });
+      v.notiSinEventos = mios.length===0;
+    }
+
+    /* #1 — tiempos sugeridos por tipo de ajuste */
+    v.modalSla = m.tipo==="sla";
+    if(v.modalSla){
+      v.modalTitulo = "Tiempos de ajuste";
+      v.slaTexto = "El sistema reconoce el tipo de ajuste y le asigna este tiempo. El cronómetro de la página suma los ajustes abiertos, así que fluctúa a medida que entran o se resuelven.";
+      v.velocidades = [1,10,60].map(x=>({
+        label: "×"+x,
+        clase: "tab mono" + (this.velocidad===x ? " on" : ""),
+        onClick: ()=>{ this.velocidad = x; this.bump(); }
+      }));
+      v.slaFilas = this.TYPE_ORDER.map(t=>({
+        label: this.TYPE_LABEL[t],
+        valor: this.SLA[t],
+        equivalente: this.fmtDur(this.SLA[t]),
+        onChange: (e)=>{ const n = parseInt(e.target.value,10); this.SLA[t] = isNaN(n)||n<1 ? 1 : n; this.bump(); }
+      }));
+      /* Plazos del lado del cliente */
+      v.slaCliente = this.CADENA.map(r=>({
+        label: "Aprobación · "+this.ROLES[r].label,
+        valor: this.SLA_APROB[r],
+        equivalente: this.fmtDur(this.SLA_APROB[r]),
+        onChange: (e)=>{ const n = parseInt(e.target.value,10); this.SLA_APROB[r] = isNaN(n)||n<1 ? 1 : n; this.bump(); }
+      })).concat([{
+        label: "Validar un ajuste (cada eslabón)",
+        valor: this.SLA_VALID,
+        equivalente: this.fmtDur(this.SLA_VALID),
+        onChange: (e)=>{ const n = parseInt(e.target.value,10); this.SLA_VALID = isNaN(n)||n<1 ? 1 : n; this.bump(); }
+      }]);
+      v.horarioResumen = "Lunes a viernes, "+this.horaDe(this.HORARIO.desde)+" a "+this.horaDe(this.HORARIO.hasta)
+        +". Fuera de ese rango nadie puede comentar ni aprobar, y todos los cronómetros quedan en pausa.";
+      v.forzarFueraClase = "btn btn-sm " + (this.forzarFuera ? "btn-dark" : "btn-out");
+      v.forzarFueraLabel = this.forzarFuera ? "Simulando fuera de horario" : "Simular fuera de horario";
+      v.onForzarFuera = ()=>{ this.forzarFuera = !this.forzarFuera; this.bump(); };
+    }
+
+    if(v.modalShare){
+      const cat = this.catalogos.find(c=>c.id===m.catId);
+      const url = location.origin+location.pathname+"#/c/"+cat.id;
+      v.modalTitulo = "Link directo para el cliente";
+      v.shareTexto = "Este link lleva al cliente directo a "+cat.nombre+" — no tiene que buscar el proyecto entre los demás catálogos.";
+      v.shareUrl = url;
+      v.onCopiar = ()=>{ try{ navigator.clipboard.writeText(url); }catch(e){} this.toast("Link copiado"); };
+    }
+
+    v.modalVersion = m.tipo==="version";
+    if(v.modalVersion){
+      const cat = this.cat(), pg = cat.paginas.find(p=>p.id===m.pagId);
+      const abiertos = pg.comentarios.filter(c=>c.estado==="abierto");
+      const set = s.resolverSet || abiertos.map(c=>c.id);
+      v.modalTitulo = "Cargar nueva versión";
+      v.versionDropLabel = s.versionImg ? (s.versionImgName+" — clic para cambiar") : ("Haz clic para elegir la imagen ajustada de la página "+pg.numero);
+      v.versionTexto = "Esta carga se guarda como v"+(pg.versionActual+1)+" y reinicia la cadena de aprobación. Marca los ajustes que quedan resueltos:";
+      v.versionFileRef = this._versionFileRef;
+      v.onPickVersionFile = ()=>{ if(this._versionFileRef.current) this._versionFileRef.current.click(); };
+      v.onVersionFile = (e)=>{
+        const f = (e.target.files||[])[0]; if(!f) return;
+        const rd = new FileReader();
+        rd.onload = ()=>this.setState({versionImg:rd.result, versionImgName:f.name});
+        rd.readAsDataURL(f);
+      };
+      v.versionPendientes = abiertos.map(c=>({
+        tipo:this.TYPE_LABEL[c.tipo], texto:c.texto, checked:set.indexOf(c.id)>=0,
+        onToggle: ()=>{
+          const next = set.indexOf(c.id)>=0 ? set.filter(x=>x!==c.id) : set.concat([c.id]);
+          this.setState({resolverSet:next});
+        }
+      }));
+      v.confirmVersionClase = s.versionImg ? "btn btn-pri" : "btn btn-out";
+      v.onConfirmVersion = ()=>{
+        if(!s.versionImg){ this.toast("Elige primero la imagen ajustada"); return; }
+        const n = pg.versionActual+1;
+        pg.versiones.push({n:n, fecha:this.hoy(), imgSrc:s.versionImg});
+        pg.versionActual = n;
+        pg.comentarios.forEach(c=>{ if(set.indexOf(c.id)>=0){ c.estado="resuelto"; c.resueltoEn=n; } });
+        /* La cadena de aprobación y su reloj arrancan de cero con cada versión */
+        pg.esperaDesde = this.ahora();
+        this.syncAprobacion(pg);
+        this.notificar("version", cat, pg, ["marketing"],
+          "Ogilvy cargó la v"+n+" de la página "+String(pg.numero).padStart(2,"0")+" · vuelve a revisión");
+        this.setState({modal:null, versionImg:null, versionImgName:null, resolverSet:null, version:n, comparar:null});
+        this.toast("Versión v"+n+" cargada · notificada a Marketing");
+      };
+    }
+
+    v.modalReporte = m.tipo==="reporte";
+    if(v.modalReporte){
+      const cat = this.catalogos.find(c=>c.id===m.catId);
+      const t = this.totales(cat);
+      const porCat = {}; this.CAT_ORDER.forEach(c=>porCat[c]=0);
+      cat.paginas.forEach(p=>{ porCat[this.catPrincipal(p)] += p.comentarios.length; });
+      v.modalTitulo = "Reporte mensual";
+      v.reporteResumen = this.CAT_ORDER.map(c=>this.CAT_LABEL[c]+" "+porCat[c]).join(" · ")+" — "+t.total+" ajustes totales, "
+        +t.abiertos+" pendientes, "+t.defectos+" defecto(s) post-producción.";
+      v.reporteFilas = cat.paginas.map(p=>({
+        pagina:String(p.numero).padStart(2,"0"),
+        categoria:this.catsLabel(p),
+        total:p.comentarios.length,
+        abiertos:p.comentarios.filter(c=>c.estado==="abierto").length,
+        version:"v"+p.versionActual,
+        aprobada:p.aprobada ? "Cerrada" : this.ubicacion(p).label
+      }));
+      v.onDescargarCSV = ()=>{
+        const head = ["Catalogo","Pagina","Categoria","Ajustes","Abiertos","Resueltos","Defectos post-produccion","Version","Etapa","Aprobada"];
+        const rows = cat.paginas.map(p=>[cat.nombre, p.numero, this.catsLabel(p), p.comentarios.length,
+          p.comentarios.filter(c=>c.estado==="abierto").length, p.comentarios.filter(c=>c.estado==="resuelto").length,
+          p.defectos.length, "v"+p.versionActual,
+          p.aprobada ? "Cerrada" : this.ubicacion(p).label, p.aprobada?"Si":"No"]);
+        const csv = [head].concat(rows).map(r=>r.map(x=>'"'+String(x).replace(/"/g,'""')+'"').join(";")).join("\n");
+        const blob = new Blob(["﻿"+csv], {type:"text/csv;charset=utf-8"});
+        const a = document.createElement("a");
+        a.href = URL.createObjectURL(blob);
+        a.download = "reporte-"+cat.id+".csv";
+        a.click();
+        setTimeout(()=>URL.revokeObjectURL(a.href), 1500);
+        this.toast("CSV descargado");
+      };
+    }
+  }
+
+  tabClase(active){ return active ? "tab on" : "tab"; }
+  chipClase(active){ return active ? "chip on" : "chip"; }
+  navClase(active){ return active ? "side-item on" : "side-item"; }
+
+  catalogoVals(v){
+    const s = this.state, cat = this.cat(), pg = this.pag();
+    const t = this.totales(cat);
+    const idxCat = this.catalogos.findIndex(c=>c.id===cat.id);
+    v.catNumeroLabel = String(idxCat+1).padStart(2,"0");
+    v.catNombre = cat.nombre;
+    v.catCliente = cat.cliente;
+    v.catMeta = cat.paginas.length+" páginas · cargado "+this.fmtDate(cat.cargaInicial);
+    v.catTotal = t.total; v.catAbiertos = t.abiertos;
+    v.catAprobLabel = t.aprobadas+"/"+cat.paginas.length;
+    v.onShareAqui = ()=>this.setState({modal:{tipo:"share", catId:cat.id}});
+    v.onVolver = ()=>this.setState({catalogoId:null, busqueda:""});
+    v.isTabPaginas = s.tab==="paginas";
+    v.isTabPagina = s.tab==="pagina";
+    v.isTabReporte = s.tab==="reporte";
+    v.tabPaginasClase = this.tabClase(v.isTabPaginas);
+    v.tabPaginaClase = this.tabClase(v.isTabPagina);
+    v.tabReporteClase = this.tabClase(v.isTabReporte);
+    v.onTabPaginas = ()=>this.setState({tab:"paginas"});
+    v.onTabPagina = ()=>this.setState({tab:"pagina"});
+    v.onTabReporte = ()=>this.setState({tab:"reporte"});
+
+    v.gridPaginas = cat.paginas.map(p=>{
+      const ab = p.comentarios.filter(c=>c.estado==="abierto").length;
+      const etapa = this.etapaAprob(p), acceso = this.tieneCategoria(p), crono = this.cronoPagina(p);
+      const ubic = this.ubicacion(p);
+      return {
+        id:p.id,
+        thumbStyle: {width:"100%", height:"100%", display:"block", backgroundImage:"url('"+this.thumbSrc(cat,p)+"')", backgroundSize:"cover", backgroundPosition:"center",
+          filter: acceso ? "none" : "grayscale(1) opacity(.5)"},
+        numeroLabel: "Pág. "+String(p.numero).padStart(2,"0"),
+        categoriaLabel: this.catsLabel(p),
+        versionLabel: "v"+p.versionActual,
+        abiertos: ab, tienePend: ab>0, aprobada: p.aprobada,
+        sinAcceso: !acceso,
+        tieneDefecto: p.defectos.length>0,
+        etapaLabel: ubic.label,
+        etapaClase: "badge " + (p.aprobada ? "badge-dark"
+          : ubic.rol===this.rol() && acceso ? "badge-red"
+          : ubic.rol==="agencia" ? "badge-out" : "badge-mut"),
+        tieneCrono: !!crono,
+        cronoLabel: crono ? (crono.estado==="espera" ? crono.label : crono.reloj) : "",
+        cronoClase: "pg-time mono" + (crono && (crono.estado==="vencido"||crono.estado==="urgente") ? " late" : ""),
+        barraPistaClase: crono ? this.pista(crono.estado, "xs") : "bar xs",
+        barraClase: "",
+        barraAncho: crono ? this.ancho(crono.pct) : "width:0;",
+        onOpen: ()=>this.setState({paginaId:p.id, version:null, tab:"pagina", filtroEstado:"todos", filtroTipo:"todos", drawMode:false, zoom:100, draft:null})
+      };
+    });
+
+    if(v.isTabReporte){
+      const conVarias = cat.paginas.filter(p=>p.versionActual>1).length;
+      const promedio = (t.total/cat.paginas.length).toFixed(1);
+      const tiles = [
+        {valor:t.total, label:"Ajustes totales", dark:false},
+        {valor:t.abiertos, label:"Pendientes", dark:"red"},
+        {valor:t.aprobadas+"/"+cat.paginas.length, label:"Aprobadas por la cadena", dark:true},
+        {valor:t.defectos, label:"Defectos tras aprobación", dark:t.defectos>0?"red":false},
+        {valor:t.vencidos, label:"Ajustes fuera de tiempo", dark:false},
+        {valor:t.aprobVencidas, label:"Aprobaciones vencidas del cliente", dark:t.aprobVencidas>0?"red":false},
+        {valor:conVarias+"/"+cat.paginas.length, label:"Con +1 versión", dark:false},
+        {valor:promedio, label:"Promedio por página", dark:false}
+      ];
+      v.tiles = tiles.map(x=>({
+        valor:x.valor, label:x.label,
+        clase:"kpi" + (x.dark==="red" ? " red" : x.dark===true ? " dark" : "")
+      }));
+
+      const porCat = {}; this.CAT_ORDER.forEach(c=>porCat[c]=0);
+      cat.paginas.forEach(p=>{ porCat[this.catPrincipal(p)] += p.comentarios.length; });
+      const maxCat = Math.max(1, Math.max.apply(null, Object.keys(porCat).map(k=>porCat[k])));
+      v.barras = this.CAT_ORDER.filter(c=>cat.paginas.some(p=>this.catPrincipal(p)===c)).map(c=>({
+        label:this.CAT_LABEL[c], valor:porCat[c],
+        clase: porCat[c]===maxCat && porCat[c]>0 ? "alto" : "",
+        ancho:"width:"+Math.max(2,(porCat[c]/maxCat*100))+"%;"+(porCat[c]===maxCat && porCat[c]>0 ? "background:var(--primary);" : "")
+      }));
+
+      v.tablaPaginas = cat.paginas.slice().sort((a,b)=>b.comentarios.length-a.comentarios.length).map(p=>{
+        const ab = p.comentarios.filter(c=>c.estado==="abierto").length;
+        return {
+          pagina:"Página "+String(p.numero).padStart(2,"0"),
+          categoria:this.catsLabel(p),
+          version:"v"+p.versionActual,
+          total:p.comentarios.length,
+          abiertos:ab,
+          pendClase: ab>0 ? "r num semi red" : "r num mut"
+        };
+      });
+
+      let log = [];
+      cat.paginas.forEach(p=>{
+        log.push({fecha:p.versiones[0].fecha, tipo:"carga", pagina:p.numero, texto:"— cargada (v1, "+this.catsLabel(p)+")", autor:this.EJECUTIVO});
+        p.comentarios.forEach(c=>{
+          log.push({fecha:c.fecha, tipo:"comentario", pagina:p.numero,
+            texto:"— "+(c.defecto?"defecto post-producción":"ajuste")+" de "+this.TYPE_CORTO[c.tipo]+" creado en v"+c.version+" por "+this.ROLES[c.origenRol].corto,
+            autor:c.autor});
+          c.validaciones.forEach(x=>log.push({fecha:x.fecha, tipo:"validacion", pagina:p.numero,
+            texto:"— ajuste validado por "+this.ROLES[x.rol].corto, autor:x.por}));
+        });
+        p.versiones.slice(1).forEach(x=>{
+          const res = p.comentarios.filter(c=>c.resueltoEn===x.n).length;
+          log.push({fecha:x.fecha, tipo:"version", pagina:p.numero, texto:"— nueva versión v"+x.n+" ("+res+" ajuste(s) resuelto(s))", autor:this.EJECUTIVO});
+        });
+        p.aprobaciones.forEach(a=>log.push({fecha:a.fecha, tipo:"aprobacion", pagina:p.numero, texto:"— aprobada por "+this.ROLES[a.rol].corto+" en v"+a.version, autor:a.por}));
+        p.defectos.forEach(d=>log.push({fecha:d.fecha, tipo:"defecto", pagina:p.numero, texto:"— reabierta por defecto post-producción sobre v"+d.version, autor:d.por}));
+      });
+      log.sort((a,b)=> a.fecha<b.fecha?1:-1);
+      if(s.logFiltro!=="todas") log = log.filter(l=>String(l.pagina)===s.logFiltro);
+      const dotColor = {carga:"#C7C7D2", comentario:"#EF3B3A", version:"#101014", aprobacion:"#101014", validacion:"#8C8C8C", defecto:"#EF3B3A"};
+      v.bitacora = log.map(l=>({
+        fecha:this.fmtDate(l.fecha), pagina:"Pág. "+String(l.pagina).padStart(2,"0"), texto:l.texto, autor:l.autor,
+        dotClase:"log-dot"+(dotColor[l.tipo]==="#EF3B3A" ? " red" : dotColor[l.tipo]==="#101014" ? " ink" : "")
+      }));
+      v.logFiltro = s.logFiltro;
+      v.logOpciones = cat.paginas.map(p=>({value:String(p.numero), label:"Página "+p.numero}));
+      v.onLogFiltro = (e)=>this.setState({logFiltro:e.target.value});
+      v.onVerReporte = ()=>this.setState({modal:{tipo:"reporte", catId:cat.id}});
+    }
+
+    if(!v.isTabPagina || !pg) return;
+
+    const ver = s.version===null ? pg.versionActual : s.version;
+    const historica = ver < pg.versionActual;
+    const iP = cat.paginas.findIndex(p=>p.id===pg.id);
+    const etapa = this.etapaAprob(pg), acceso = this.tieneCategoria(pg), crono = this.cronoPagina(pg);
+    /* Cerrada para quien ya dio su visto bueno a esta versión: su único camino es el PPD */
+    const yaAprobe = v.esCliente && this.yaAprobo(pg);
+    v.pagTitulo = "Página "+String(pg.numero).padStart(2,"0");
+    v.pagSubtitulo = this.catsLabel(pg)+" · navega con ← →";
+    v.pagCategoria = this.catsLabel(pg);
+    v.pagVersionActual = "v"+pg.versionActual;
+    v.pagAjustes = pg.comentarios.length+" · "+pg.comentarios.filter(c=>c.estado==="abierto").length+" pendientes";
+    v.pagEstado = pg.aprobada ? ("Aprobada v"+pg.aprobadaVersion) : this.ubicacion(pg).label;
+    v.pagEstadoClase = "badge " + (pg.aprobada ? "badge-dark" : "badge-soft");
+
+    /* #7 — la categoría de la página frente a la asignada al usuario */
+    v.sinAcceso = !acceso;
+    v.pagCerrada = (pg.aprobada && (acceso || v.esAgencia)) || (yaAprobe && acceso);
+    v.pagCerradaLabel = v.esAgencia
+      ? "Página aprobada por toda la cadena y cerrada: no se pueden cargar versiones nuevas. "
+        + "Para volver a tocarla, el cliente tiene que registrar un Post Production Defect."
+      : pg.aprobada
+        ? "Esta página ya está aprobada por toda la cadena y quedó cerrada a comentarios. "
+          + "Si encontraste algo después de la aprobación, regístralo como Post Production Defect."
+        : "Ya diste tu visto bueno a la v"+pg.versionActual+", así que esta página quedó cerrada para tu equipo. "
+          + "Si encontraste algo después de aprobar, regístralo como Post Production Defect: reabre la página, "
+          + "se anulan las aprobaciones de esta versión y queda contado aparte en el reporte.";
+    v.sinAccesoLabel = "Tu usuario tiene asignado "+(s.session.categorias||[]).map(c=>this.CAT_LABEL[c]).join(" · ")
+      +". Puedes ver esta página ("+this.catsLabel(pg)+"), pero no comentarla ni aprobarla.";
+
+    /* #5 — cadena de aprobación visible */
+    const suspendida = this.aprobSuspendida(pg);
+    v.cadena = this.CADENA.map((r,i)=>{
+      const hecha = pg.aprobaciones.filter(a=>a.version===pg.versionActual && a.rol===r)[0];
+      const activa = etapa===r;
+      return {
+        n: hecha ? "✓" : String(i+1),
+        label: this.ROLES[r].corto,
+        meta: hecha ? hecha.por : (activa ? (suspendida ? "En pausa" : "En revisión") : "En espera"),
+        clase: "vstep step " + (hecha ? "done" : (activa && !suspendida) ? "on" : "wait")
+      };
+    });
+    const ubic = this.ubicacion(pg);
+    const nAbiertos = pg.comentarios.filter(c=>c.estado==="abierto").length;
+    v.cadenaSuspendida = suspendida;
+    v.ubicLabel = ubic.label;
+    v.ubicClase = "badge " + (pg.aprobada ? "badge-dark"
+      : ubic.rol===this.rol() && acceso ? "badge-red"
+      : ubic.rol==="agencia" ? "badge-out" : "badge-mut");
+    v.cadenaNota = suspendida
+      ? (nAbiertos===1
+          ? "Hay 1 ajuste en curso. La aprobación se reanuda cuando se cierre."
+          : "Hay "+nAbiertos+" ajustes en curso. La aprobación se reanuda cuando se cierren.")
+      : "";
+
+    /* #1 — cronómetro de la página */
+    v.hayCrono = !!crono;
+    if(crono){
+      /* Semáforo: verde mientras sobra tiempo, rojo cuando aprieta o se pasó.
+         Fuera de horario el reloj queda congelado y se dibuja en gris. */
+      const parado = !this.enHorario();
+      const tono = parado ? "" : (crono.estado==="vencido" || crono.estado==="urgente") ? "late" : "ok";
+      v.cronoTitulo = crono.tipo==="aprobacion"
+        ? (crono.restante<0 ? "Aprobación vencida hace" : "El cliente tiene")
+        : (crono.restante<0 ? "Vencido hace" : "Tiempo restante");
+      v.cronoReloj = crono.reloj;
+      v.cronoDetalle = crono.donde + " · plazo " + this.fmtDur(crono.total)
+        + (parado ? " · en pausa fuera de horario" : "");
+      v.cronoCajaClase = "tmr " + tono;
+      v.cronoDotClase = "tmr-dot " + tono;
+      v.cronoRelojClase = "tmr-val mono " + tono;
+      v.cronoPistaClase = "bar " + (tono==="late" ? "red soft" : tono==="ok" ? "ok" : "wait");
+      v.cronoBarraAncho = this.ancho(crono.pct);
+    }
+    v.pagSrc = this.pageSrc(cat, pg);
+    v.esHistorica = historica;
+    v.historicaLabel = "Versión histórica — reemplazada por v"+pg.versionActual+". No se pueden agregar ajustes aquí.";
+    v.zoomLabel = s.zoom+"%";
+    v.onZoomIn = ()=>this.setState({zoom:Math.min(200, s.zoom+25)});
+    v.onZoomOut = ()=>this.setState({zoom:Math.max(50, s.zoom-25)});
+    v.onZoomReset = ()=>this.setState({zoom:100});
+    v.onPrevPage = ()=>this.movePage(-1);
+    v.onNextPage = ()=>this.movePage(1);
+
+    v.canvasStyle = {width: s.zoom===100 ? "100%" : (s.zoom+"%")};
+    v.imgStyle = {width:"100%", height:"100%", display:"block", userSelect:"none",
+      backgroundImage:"url('"+this.pageSrc(cat,pg)+"')", backgroundSize:"cover", backgroundPosition:"center",
+      filter: historica ? "grayscale(.75) opacity(.6)" : "none"};
+    v.overlayStyle = {position:"absolute", inset:0, cursor: s.drawMode ? "crosshair" : "default"};
+
+    v.versiones = pg.versiones.map(x=>({
+      n:x.n,
+      label: "v"+x.n,
+      clase: this.chipClase(x.n===ver),
+      onSelect: ()=>this.setState({version:x.n, drawMode:false, draft:null, zoom:100, comparar:null})
+    }));
+
+    const abierto = this.enHorario();
+    v.puedeDibujar = v.esCliente && !historica && acceso && abierto && !pg.aprobada && !yaAprobe;
+    v.puedeAprobar = v.esCliente && !historica && acceso && etapa===this.rol() && abierto && !this.hayAjustes(pg);
+    /* #3 — reabrir una página ya aprobada como defecto post-producción */
+    v.puedeReabrir = v.esCliente && !historica && acceso && abierto && (pg.aprobada || yaAprobe);
+    /* #4 — comparar la versión nueva contra la anterior */
+    v.puedeComparar = pg.versionActual>1;
+    v.onReabrir = ()=>this.setState({modal:{tipo:"defecto", pagId:pg.id}, defectoTexto:"", defectoTipo:"imagen"});
+    v.drawLabel = s.drawMode ? "Marcando región…" : "Comentar región";
+    v.drawClase = "btn btn-sm " + (s.drawMode ? "btn-pri" : "btn-out");
+    v.onToggleDraw = ()=>this.setState({drawMode:!s.drawMode, draft:null, tempBox:null, comparar:null});
+
+    /* #4 — comparación embebida en el lienzo, no en una ventana aparte */
+    const cmp = s.comparar;
+    v.modoRevision = !cmp;
+    v.modoComparar = !!cmp;
+    v.modoRevisionClase = this.tabClase(!cmp);
+    v.modoCompararClase = this.tabClase(!!cmp);
+    v.onModoRevision = ()=>this.setState({comparar:null});
+    v.onModoComparar = ()=>this.abrirComparacion(pg, ver);
+    if(cmp){
+      const cajas = s.diff || [];
+      const resueltos = pg.comentarios.filter(c=>c.resueltoEn===cmp.b);
+      v.cmpAlabel = "v"+cmp.a;
+      v.cmpBlabel = "v"+cmp.b;
+      v.cmpEstado = s.diffEstado==="calculando" ? "Detectando cambios…"
+        : s.diffEstado==="cambios" ? (cajas.length+" región(es) con cambios detectados")
+        : s.diffEstado==="iguales" ? "Sin diferencias de imagen entre las dos versiones"
+        : "No se pudieron comparar las imágenes";
+      v.cmpEstadoClase = "badge " + (s.diffEstado==="cambios" ? "badge-soft" : "badge-mut");
+      v.cmpAstyle = {backgroundImage:"url('"+this.srcVersion(pg,cmp.a)+"')", backgroundSize:"cover", backgroundPosition:"center"};
+      v.cmpBstyle = {backgroundImage:"url('"+this.srcVersion(pg,cmp.b)+"')", backgroundSize:"cover", backgroundPosition:"center"};
+      v.cmpCajas = cajas.map((b,i)=>({
+        num: i+1,
+        style: {left:(b.x*100)+"%", top:(b.y*100)+"%", width:(b.w*100)+"%", height:(b.h*100)+"%"}
+      }));
+      v.cmpResueltos = resueltos.map(c=>({
+        label: this.TYPE_LABEL[c.tipo], texto: c.texto, meta: c.autor+" · pedido en v"+c.version
+      }));
+      v.cmpSinResueltos = resueltos.length===0;
+
+      v.cmpOpciones = pg.versiones.filter(x=>x.n<cmp.b).map(x=>({value:String(x.n), label:"v"+x.n+" · "+this.fmtDate(x.fecha)}));
+      v.cmpContra = String(cmp.a);
+      v.onCmpContra = (e)=>this.abrirComparacion(pg, cmp.b, parseInt(e.target.value,10));
+
+      v.cmpEsLado = cmp.modo==="lado";
+      v.cmpEsCortina = cmp.modo==="cortina";
+      v.cmpLadoClase = this.tabClase(v.cmpEsLado);
+      v.cmpCortinaClase = this.tabClase(v.cmpEsCortina);
+      v.onCmpLado = ()=>this.setState({comparar:Object.assign({}, cmp, {modo:"lado"})});
+      v.onCmpCortina = ()=>this.setState({comparar:Object.assign({}, cmp, {modo:"cortina"})});
+
+      /* Cortina: la versión anterior se recorta hasta la posición del tirador */
+      const x = cmp.x===undefined ? 0.5 : cmp.x;
+      v.cmpCortinaAstyle = Object.assign({}, v.cmpAstyle, {clipPath:"inset(0 "+((1-x)*100).toFixed(1)+"% 0 0)"});
+      v.cmpCortinaHandle = {left:(x*100).toFixed(1)+"%"};
+      const posX = (e)=>{
+        const r = e.currentTarget.getBoundingClientRect();
+        return Math.min(1, Math.max(0, (e.clientX-r.left)/r.width));
+      };
+      v.onCortinaDown = (e)=>{ this._cortina = true; this.setState({comparar:Object.assign({}, cmp, {x:posX(e)})}); };
+      v.onCortinaMove = (e)=>{ if(this._cortina) this.setState({comparar:Object.assign({}, cmp, {x:posX(e)})}); };
+      v.onCortinaUp = ()=>{ this._cortina = false; };
+    }
+    v.onAprobar = ()=>this.setState({modal:{tipo:"aprobar", pagId:pg.id}});
+    v.puedeNuevaVersion = v.esAgencia && !historica && abierto && !pg.aprobada;
+    v.onNuevaVersion = ()=>this.setState({modal:{tipo:"version", pagId:pg.id}, resolverIds:null});
+
+    v.boxes = pg.comentarios.map((c,i)=>({
+      id:c.id, num:i+1,
+      style:{position:"absolute", left:(c.box.x*100)+"%", top:(c.box.y*100)+"%", width:(c.box.w*100)+"%", height:(c.box.h*100)+"%",
+        border:"2px solid "+(c.estado==="abierto"?"#EF3B3A":"#B9B9C4"), borderRadius:"8px", cursor:"pointer",
+        boxShadow:(c.estado==="abierto"?"0 0 0 5px rgba(239,59,58,.16)":"none"),
+        background:(c.estado==="abierto"?"rgba(239,59,58,.10)":"rgba(255,255,255,.06)")},
+      numStyle:{position:"absolute", top:"-13px", left:"-13px", width:"26px", height:"26px", borderRadius:"50%", display:"flex", alignItems:"center", justifyContent:"center",
+        background:(c.estado==="abierto"?"#EF3B3A":"#fff"), color:(c.estado==="abierto"?"#fff":"#101014"), fontSize:"12px", fontWeight:600,
+        boxShadow:"0 6px 16px -8px rgba(0,0,0,.8)"},
+      onClick:(e)=>{ e.stopPropagation(); this.setState({filtroEstado:"todos", filtroTipo:c.tipo}); }
+    }));
+
+    v.hayTempBox = !!s.tempBox;
+    if(s.tempBox) v.tempBoxStyle = {position:"absolute", left:(s.tempBox.x*100)+"%", top:(s.tempBox.y*100)+"%", width:(s.tempBox.w*100)+"%", height:(s.tempBox.h*100)+"%", border:"2px dashed #EF3B3A", borderRadius:"8px", background:"rgba(239,59,58,.12)", pointerEvents:"none"};
+
+    const pct = (e)=>{
+      const r = e.currentTarget.getBoundingClientRect();
+      return {x:Math.min(1,Math.max(0,(e.clientX-r.left)/r.width)), y:Math.min(1,Math.max(0,(e.clientY-r.top)/r.height))};
+    };
+    v.onDrawStart = (e)=>{ if(!s.drawMode || s.draft) return; const p = pct(e); this._start = p; this.setState({tempBox:{x:p.x,y:p.y,w:0,h:0}}); };
+    v.onDrawMove = (e)=>{ if(!s.drawMode || !this._start || s.draft) return; const p = pct(e); const a = this._start;
+      this.setState({tempBox:{x:Math.min(a.x,p.x), y:Math.min(a.y,p.y), w:Math.abs(p.x-a.x), h:Math.abs(p.y-a.y)}}); };
+    v.onDrawEnd = (e)=>{
+      if(!s.drawMode || !this._start || s.draft) return;
+      const p = pct(e), a = this._start; this._start = null;
+      let x=Math.min(a.x,p.x), y=Math.min(a.y,p.y), w=Math.abs(p.x-a.x), h=Math.abs(p.y-a.y);
+      if(w<.03 || h<.02){ w=.18; h=.08; x=Math.max(0,Math.min(1-w,a.x-w/2)); y=Math.max(0,Math.min(1-h,a.y-h/2)); }
+      this.setState({tempBox:{x,y,w,h}, draft:{box:{x,y,w,h}, tipo:"precio", texto:""}});
+    };
+
+    v.hayDraft = !!s.draft;
+    if(s.draft){
+      const b = s.draft.box;
+      const left = Math.min(Math.max(0,(b.x+b.w)*100), 52);
+      const top = Math.min(Math.max(0,b.y*100), 52);
+      v.draftStyle = {position:"absolute", left:left+"%", top:top+"%", width:"272px", maxWidth:"86%", background:"#fff", border:"1px solid #E4E4E7", borderRadius:"12px", boxShadow:"0 24px 48px -20px rgba(9,9,11,.5)", padding:"14px", zIndex:6};
+      v.draftTipo = s.draft.tipo; v.draftTexto = s.draft.texto;
+      v.onDraftTipo = (e)=>this.setState({draft:Object.assign({}, s.draft, {tipo:e.target.value})});
+      v.onDraftTexto = (e)=>this.setState({draft:Object.assign({}, s.draft, {texto:e.target.value})});
+      v.onDraftCancel = ()=>this.setState({draft:null, tempBox:null, drawMode:false});
+      v.onDraftSend = ()=>{
+        const d = s.draft;
+        if(!d.texto.trim()) return;
+        this.nuevoAjuste(pg, {box:d.box, tipo:d.tipo, texto:d.texto.trim()});
+        this.setState({draft:null, tempBox:null, drawMode:false});
+        const ruta = this.rutaAjuste(this.rol());
+        this.toast(ruta[0]==="agencia"
+          ? "Ajuste enviado a Ogilvy · cronómetro en marcha"
+          : "Ajuste enviado a "+this.ROLES[ruta[0]].corto+" para validación");
+      };
+    }
+
+    const estados = [["todos","Todos"],["abierto","Pendientes"],["resuelto","Resueltos"]];
+    v.filtrosEstado = estados.map(e=>({key:e[0], label:e[1], clase:this.tabClase(s.filtroEstado===e[0]), onClick:()=>this.setState({filtroEstado:e[0]})}));
+    v.opcionesTipo = [{value:"todos", label:"Todos los tipos"}]
+      .concat(this.TYPE_ORDER.map(t=>({value:t, label:this.TYPE_LABEL[t]})));
+    v.filtroTipo = s.filtroTipo;
+    v.onFiltroTipo = (e)=>this.setState({filtroTipo:e.target.value});
+
+    let items = pg.comentarios.map((c,i)=>({c:c, idx:i+1}));
+    if(s.filtroEstado!=="todos") items = items.filter(o=>o.c.estado===s.filtroEstado);
+    if(s.filtroTipo!=="todos") items = items.filter(o=>o.c.tipo===s.filtroTipo);
+    items.sort((a,b)=> (b.c.creado||0)-(a.c.creado||0));   /* lo más nuevo arriba */
+    v.sinComentarios = items.length===0;
+    v.replyText = s.replyText;
+    v.onReplyText = (e)=>this.setState({replyText:e.target.value});
+    v.onReplyCancel = ()=>this.setState({replyOpen:null, replyText:""});
+    v.comentarios = items.map(o=>{
+      const c = o.c, abierto = c.estado==="abierto";
+      const etapaC = this.etapaAjuste(c), rest = this.restanteMin(c);
+      const traza = [this.ROLES[c.origenRol].corto]
+        .concat(this.rutaAjuste(c.origenRol).map(r=>this.ROLES[r].corto));
+      return {
+        id:c.id,
+        ts: c.creado || 0,
+        head: "#"+o.idx+" · "+this.TYPE_LABEL[c.tipo],
+        texto: c.texto,
+        estadoLabel: abierto && etapaC ? "En "+this.ROLES[etapaC].corto : ("Resuelto en v"+c.resueltoEn),
+        estadoClase: "badge " + (abierto ? "badge-soft" : "badge-mut"),
+        wrapClase: "cmt" + (abierto ? " open" : "") + (c.defecto ? " ppd" : ""),
+        meta: c.autor+" · "+this.fmtDate(c.fecha)+" · v"+c.version,
+        esDefecto: c.defecto,
+        rutaLabel: "Ruta: "+traza.join(" › "),
+        tieneCrono: abierto,
+        cronoLabel: rest===null ? this.fmtReloj(this.slaMin(c)) : this.fmtReloj(rest),
+        cronoClase: "t-xs mono semi" + (rest===null ? " mut" : rest<0 ? " red" : ""),
+        pistaClase: this.pista(this.estadoAjuste(c), "xs"),
+        barraClase: "",
+        barraAncho: this.ancho(this.consumidoMin(c)/this.slaMin(c)),
+        slaLabel: abierto ? (this.dondeAjuste(c)+" · SLA "+this.fmtDur(this.slaAjuste(c))) : "",
+        respuestas: c.respuestas.map(r=>({texto:r.texto, meta:r.autor+" · "+this.fmtDate(r.fecha)})),
+        validaciones: c.validaciones.map(x=>({texto:(x.nota || "Validado sin comentarios adicionales."), meta:this.ROLES[x.rol].corto+" · "+x.por+" · "+this.fmtDate(x.fecha)})),
+        puedeValidar: abierto && etapaC===this.rol() && etapaC!=="agencia" && this.enHorario(),
+        onValidar: ()=>this.validarAjuste(pg, c, s.replyOpen===c.id ? s.replyText : ""),
+        puedeResolver: v.esAgencia && abierto && etapaC==="agencia" && this.enHorario(),
+        puedeResponder: true,
+        replyOpen: s.replyOpen===c.id,
+        onReply: ()=>this.setState({replyOpen: s.replyOpen===c.id ? null : c.id, replyText:""}),
+        onResolver: ()=>{
+          c.estado="resuelto"; c.resueltoEn = pg.versionActual;
+          if(!pg.comentarios.some(x=>x.estado==="abierto")){
+            pg.esperaDesde = this.ahora();
+            this.notificar("resuelto", cat, pg, [this.etapaAprob(pg)],
+              "Ogilvy resolvió los ajustes de la página "+String(pg.numero).padStart(2,"0")+" · pendiente tu aprobación");
+          }
+          this.bump(); this.toast("Ajuste resuelto · vuelve a la cadena de aprobación");
+        },
+        onReplySend: ()=>{
+          const txt = (s.replyText||"").trim();
+          if(!txt) return;
+          c.respuestas.push({ts:this.ahora(), texto:txt, autor:s.session.nombre, fecha:this.hoy()});
+          this.setState({replyOpen:null, replyText:""});
+          this.toast("Respuesta enviada");
+        }
+      };
+    });
+
+    if(s.filtroEstado==="todos" && s.filtroTipo==="todos"){
+      const vacio = {ts:0, esDefecto:false, rutaLabel:"", tieneCrono:false, cronoLabel:"", cronoClase:"", slaLabel:"",
+        pistaClase:"", barraClase:"", barraAncho:"",
+        validaciones:[], respuestas:[], puedeValidar:false, puedeResolver:false, puedeResponder:false, replyOpen:false,
+        onValidar:()=>{}, onReply:()=>{}, onResolver:()=>{}, onReplySend:()=>{}};
+      const aprob = pg.aprobaciones.slice().reverse().map((a,i)=>Object.assign({}, vacio, {
+        id: pg.id+"-apr"+i,
+        head: "Aprobación "+this.ROLES[a.rol].corto+" · v"+a.version,
+        texto: "Visto bueno de "+this.ROLES[a.rol].label+" registrado por "+a.por+".",
+        estadoLabel: "Aprobada",
+        estadoClase: "badge badge-dark",
+        wrapClase: "cmt",
+        meta: a.por+" · "+this.fmtDate(a.fecha)+" · v"+a.version,
+        ts: a.ts || 0
+      }));
+      const defs = pg.defectos.slice().reverse().map((d,i)=>Object.assign({}, vacio, {
+        id: pg.id+"-def"+i,
+        head: "Defecto post-producción · v"+d.version,
+        texto: d.motivo,
+        estadoLabel: "Reabierta",
+        estadoClase: "badge badge-red",
+        wrapClase: "cmt ppd",
+        meta: d.por+" · "+this.ROLES[d.rol].corto+" · "+this.fmtDate(d.fecha),
+        ts: d.ts || 0
+      }));
+      /* Ajustes, aprobaciones y defectos comparten una sola línea de tiempo */
+      if(aprob.length || defs.length){
+        v.comentarios = aprob.concat(defs).concat(v.comentarios);
+        v.comentarios.sort((a,b)=> (b.ts||0)-(a.ts||0));
+        v.sinComentarios = false;
+      }
+    }
+  }
+}
+
+</script>
+
+
+</div></x-dc></body></html>
